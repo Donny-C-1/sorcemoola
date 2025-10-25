@@ -1,6 +1,6 @@
 package models
 
-imoort (
+import (
 	"time"
 
 	"github.com/google/uuid"
