@@ -1,9 +1,8 @@
 package main
 
 import (
-	"fmt"
-	"os"
 	"log"
+	"os"
 
 	"github.com/donny-c-1/sorcemoola/server/database"
 	"github.com/donny-c-1/sorcemoola/server/routes"
