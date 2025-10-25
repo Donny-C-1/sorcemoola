@@ -1,3 +1,5 @@
+package database
+
 import (
 	"os"
 	"fmt"

@@ -1,3 +1,5 @@
+package routes
+
 import (
 	"github.com/donny-c-1/sorcemoola/server/handlers"
 	"github.com/gin-gonic/gin"
