@@ -25,8 +25,17 @@ func main() {
 	if err := database.Connect(); err != nil {
 		log.Fatalf("Failed to connect to DB: %v", err)
 	}
+
+	// Run database migrations
+	if err := database.Migrate(); err != nil {
+		log.Fatalf("Failed to run database migrations: %v", err)
+	}
+
 	// Initialize gin router
 	router := gin.Default()
+
+	// Prevent Untrusted Proxies
+	router.SetTrustedProxies([]string{})
 
 	// Setup routes
 	routes.SetupRoutes(router)

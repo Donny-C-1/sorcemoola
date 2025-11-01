@@ -8,6 +8,7 @@ import (
 	"github.com/donny-c-1/sorcemoola/server/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
 var DB *gorm.DB
@@ -16,7 +17,9 @@ func Connect() error {
 	connStr := os.Getenv("DATABASE_URL")
 
 	var err error
-	DB, err = gorm.Open(postgres.Open(connStr), &gorm.Config{})
+	DB, err = gorm.Open(postgres.Open(connStr), &gorm.Config{
+		Logger: logger.Default.LogMode(logger.Info),
+	})
 
 	if err != nil {
 		return fmt.Errorf("failed to connect to database: %w", err)
