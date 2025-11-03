@@ -1,3 +1,42 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
+
+
+@layer components {
+  .signup-form {
+    @apply max-w-md mx-auto p-8 border border-gray-200 rounded-lg shadow-md bg-white;
+  }
+
+  .form-group {
+    @apply mb-4;
+  }
+
+  .form-label {
+    @apply block text-gray-700 text-sm font-bold mb-2;
+  }
+
+  .form-input {
+    @apply shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline;
+  }
+
+  .submit-button {
+    @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-colors duration-200;
+  }
+
+  .submit-button:disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+
+  .error-message {
+    @apply text-red-500 text-xs italic mt-1;
+  }
+
+  .feedback-success {
+    @apply p-3 rounded-md text-green-700 bg-green-100 text-center mb-4;
+  }
+
+  .feedback-error {
+    @apply p-3 rounded-md text-red-700 bg-red-100 text-center mb-4;
+  }
+}
