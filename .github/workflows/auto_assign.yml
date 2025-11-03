@@ -1,0 +1,93 @@
+name: Auto Assign Issue
+
+run-name: Auto assign issues to members who want to handle it
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  Assign:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const commentBody = context.payload.comment.body;
+            const issue = context.payload.issue;
+            const commenter = context.payload.comment.user.login;
+
+            if (commentBody.includes('!take')) {
+              if (issue.assignees.length === 0) {
+                await github.rest.issues.addAssignees({
+                  issue_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  assignees: [commenter]
+                });
+                await github.rest.issues.createComment({
+                  issue_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: `Issue assigned to @${commenter}!`
+                });
+              } else {
+                await github.rest.issues.createComment({
+                  issue_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: `Issue already taken by @${issue.assignees[0].login}.  Use !support to assist.`
+                });
+              }
+            } else if (commentBody.includes('!support')) {
+              if (issue.assignees.length > 0 && !issue.assignees.some(assignee => assignee.login === commenter)) {
+                await github.rest.issues.addAssignees({
+                  issue_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  assignees: [commenter] // Add the supporter as an assignee
+                });
+                await github.rest.issues.createComment({
+                  issue_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: `@${commenter} is now supporting this issue.`
+                });
+              } else if (issue.assignees.some(assignee => assignee.login === commenter)){
+                await github.rest.issues.createComment({
+                  issue_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: `@${commenter} is already assigned to this issue.`
+                });
+              } else {
+                await github.rest.issues.createComment({
+                  issue_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: `@${commenter} No one has taken this issue yet. Use !take to claim it.`
+                });
+              }
+            } else if (commentBody.includes('!drop')) {
+              if (issue.assignees.some(assignee => assignee.login === commenter)) {
+                await github.rest.issues.removeAssignees({
+                  issue_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  assignees: [commenter]
+                });
+                await github.rest.issues.createComment({
+                  issue_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: `@${commenter} has dropped the issue.`
+                });
+              } else {
+                await github.rest.issues.createComment({
+                  issue_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: `@${commenter} is not assigned to this issue.`
+                });
+              }
+            }
