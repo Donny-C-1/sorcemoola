@@ -1,9 +1,9 @@
 <!-- omit in toc -->
-# Contributing to Template Repository
+# Contributing to Sorcemoola
 
 First off, thanks for taking the time to contribute! ❤️
 
-All types of contributions are encouraged and valued. See the [Table of Contents](#table-of-contents) for different ways to help and details about how this project handles them. Please make sure to read the relevant section before making your contribution. It will make it a lot easier for us maintainers and smooth out the experience for all involved. The community looks forward to your contributions. 🎉
+All contributions are welcome and appreciated. 🎉
 
 > And if you like the project, but just don't have time to contribute, that's fine. There are other easy ways to support the project and show your appreciation, which we would also be very happy about:
 > - Star the project
@@ -15,24 +15,45 @@ All types of contributions are encouraged and valued. See the [Table of Contents
 ## Table of Contents
 
 - [Code of Conduct](#code-of-conduct)
+- [Before You Start](#before-you-start)
+- [Getting Started](#getting-started)
 - [I Have a Question](#i-have-a-question)
 - [I Want To Contribute](#i-want-to-contribute)
 - [Reporting Bugs](#reporting-bugs)
 - [Suggesting Enhancements](#suggesting-enhancements)
-- [Your First Code Contribution](#your-first-code-contribution)
-- [Improving The Documentation](#improving-the-documentation)
-- [Styleguides](#styleguides)
-- [Commit Messages](#commit-messages)
-- [Join The Project Team](#join-the-project-team)
-
+- 
 
 ## Code of Conduct
 
 This project and everyone participating in it is governed by the
-[Template Repository Code of Conduct](https://github.com/Donny-C-1/basic_template.git/blob/main-branch/CODE_OF_CONDUCT.md).
+[Sorcemoola Code of Conduct](https://github.com/Donny-C-1/sorcemoola.git/blob/main-branch/CODE_OF_CONDUCT.md).
 By participating, you are expected to uphold this code. Please report unacceptable behavior
 to .
 
+## Before You Start
+
+Please read the README for setup instructions and project overview.
+
+## Getting Started
+
+**⚠️ IMPORTANT: All contributions must be made to the `dev` branch.** The `main-branch` branch is reserved for stable releases.
+
+### 1. Clone the `dev` Branch
+
+Start by cloning the correct branch for development:
+
+```bash
+git clone --branch dev --single-branch https://github.com/Donny-C-1/sorcemoola.git
+```
+
+### 2. Create a Feature Branch
+
+Before making changes create a new feature or fix branch from dev
+```
+git checkout -b feature/my-awesome-feature
+or
+git checkout -b fix/issue description
+```
 
 ## I Have a Question
 
@@ -86,7 +107,6 @@ A good bug report shouldn't leave others needing to chase you up for more inform
 - Possibly your input and the output
 - Can you reliably reproduce the issue? And can you also reproduce it with older versions?
 
-<!-- omit in toc -->
 #### How Do I Submit a Good Bug Report?
 
 > You must never report security related issues, vulnerabilities or bugs including sensitive information to the issue tracker, or elsewhere in public. Instead sensitive bugs must be sent by email to .
@@ -131,29 +151,5 @@ Enhancement suggestions are tracked as [GitHub issues](https://github.com/Donny-
 - You may want to **include screenshots or screen recordings** which help you demonstrate the steps or point out the part which the suggestion is related to. You can use [LICEcap](https://www.cockos.com/licecap/) to record GIFs on macOS and Windows, and the built-in [screen recorder in GNOME](https://help.gnome.org/users/gnome-help/stable/screen-shot-record.html.en) or [SimpleScreenRecorder](https://github.com/MaartenBaert/ssr) on Linux. <!-- this should only be included if the project has a GUI -->
 - **Explain why this enhancement would be useful** to most Template Repository users. You may also want to point out the other projects that solved it better and which could serve as inspiration.
 
-<!-- You might want to create an issue template for enhancement suggestions that can be used as a guide and that defines the structure of the information to be included. If you do so, reference it here in the description. -->
-
-### Your First Code Contribution
-<!-- TODO
-include Setup of env, IDE and typical getting started instructions?
-
--->
-
-### Improving The Documentation
-<!-- TODO
-Updating, improving and correcting the documentation
-
--->
-
-## Styleguides
-### Commit Messages
-<!-- TODO
-
--->
-
-## Join The Project Team
-<!-- TODO -->
-
-<!-- omit in toc -->
 ## Attribution
 This guide is based on the [contributing.md](https://contributing.md/generator)!
