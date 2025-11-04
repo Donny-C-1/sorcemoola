@@ -1,67 +1,101 @@
-<div style="text-align:center;">
+<style> 
+    * { font-family: "Comic Sans MS"; }
+    .center {
+        text-align: center;
+    }
+</style>
 
-# Template Readme
-A template that contains all the basic formatting for a project. It is used for creating new repos without having to specify each thing once again. Its for basic repositories. Feel free to clone it or use it for your own open source projects.
+<div class="center">
 
-[View Demo](google.com) |
-[Report bug](google.com) |
-[Request Feature](google.com)
+# SorceMoola
 
+SorceMoola is a crowdfunding web application that allows users to create, fund, and manage fundraising campaigns.
 
-![Static Badge](https://img.shields.io/badge/Project_Name-Project_Template-%233CB371?style=for-the-badge)
+[View Demo](sorcemoola.vercel.com) |
+[Report bug](<[google.com](https://github.com/Donny-C-1/sorcemoola?tab=contributing-ov-file#reporting-bugs)>) |
+[Request Feature](<[google.com](https://github.com/Donny-C-1/sorcemoola?tab=contributing-ov-file#suggesting-enhancements)>)
+
+![Static Badge](https://img.shields.io/badge/Project_Name-SorceMoola-%233CB371?style=for-the-badge)
 ![Static Badge](https://img.shields.io/badge/status-development-dodgerblue?style=for-the-badge)
 ![Static Badge](https://img.shields.io/badge/version-1.0-%233CB371?style=for-the-badge)
+
 </div>
 
+## Tech Stack
 
+-   **Backend:** GO
+-   **Frontend:** Svelte
+-   **Database:** PostgreSQL (hosted on Neon DB)
 
-## ⭐ Features 
-Note that features should be things that already exist in the project not things you want to add.
-- Feature number 1
-- Feature number 2
-- Feature number 3
+## Features
 
+-   User authentication and authorization
+-   Campaign creation and management
+-   Secure payment processing
+-   Campaign discovery and filtering
+-   User profile management
+-   Real-time funding progress tracking
 
+## Prerequisites
 
+-   Go (1.25+)
+-   Node.js (20+)
+-   npm or yarn
 
+## Getting Started
 
-## 🚀 Getting Started
 To check out the application, you can view the live demo right here or follow the instructions below to setup the application on your local device.
 
-### 📋 Requirements
-1. Nodejs
-
-### ⚙️ Installation
+### Installation
 
 1. Clone the repository:
+
 ```sh
-git clone https://github.com/Donny-C-1/<repo_name>.git
+git clone https://github.com/Donny-C-1/sorcemoola.git
 ```
-2. Navigate to the project directory
+
+2. Backend Setup
+
 ```sh
-cd <repo_name>
+# Navigate to the server folder
+cd sorcemoola/server
+
+# Install dependencies
+go mod tidy
 ```
-3. Install the required dependencies:
+
+- Configure environment variables in a `.env` file
+```env
+DATABASE_URL=<your_postgres_database_url>
+PORT=<port>
+```
+
+
+- Run the backend
+```go
+go run main.go
+```
+
+3. Frontend Setup
 ```sh
+# Navigate to frontend location
+cd ../client
+
+# Install dependencies
 npm install
+
+# Start development server
+npm run dev
 ```
 
-### ⚡ Usage
-To start the webapp, simply naviagte to the folder and run the script on the command line
-```sh
-cd "<repo_name"
-npm start
-```
-
-## 📄 License 
+## License
 
 This project is licensed under the Apache License v2. See the [LICENSE](LICENSE) file for details.
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please open an issue or submit a pull request for any changes.
+Contributions are welcome. Please review the [Contributing.md](CONTRIBUTING.md) file before attempting to contribute.
 
 ## 📱 Contact
 
 Made with 💛💜 by Donny C. For any questions or suggestions please contact [Donny C](mailto:chikwemdonald@gmail.com).
-
