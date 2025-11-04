@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
 
@@ -13,7 +14,7 @@ type User struct {
 	LastName      string         `json:"last_name" gorm:"not null"`
 	PreferredName string         `json:"preferred_name"`
 	Email         string         `gorm:"unique;not null"`
-	PasswordHash  string         `json:"-" gorm:"not null"`
+	Password      string         `json:"-" gorm:"not null"`
 	DateOfBirth   time.Time      `json:"date_of_birth"`
 	CreatedAt     time.Time      `json:"created_at"`
 	UpdatedAt     time.Time      `json:"updated_at"`
@@ -28,5 +29,16 @@ func (u *User) BeforeCreate(tx *gorm.DB) error {
 	if u.ID == uuid.Nil {
 		u.ID = uuid.New()
 	}
+
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(u.Password), bcrypt.DefaultCost)
+	if err != nil {
+		return err
+	}
+	u.Password = string(hashedPassword)
 	return nil
+}
+
+func (u *User) VerifyPassword(password string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(u.Password), []byte(password))
+	return err == nil
 }

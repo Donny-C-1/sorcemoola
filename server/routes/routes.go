@@ -9,4 +9,12 @@ func SetupRoutes(router *gin.Engine) {
 	router.GET("/", handlers.HomeHandler)
 
 	router.GET("/health", handlers.HealthHandler)
+
+	v1 := router.Group("/api/v1")
+	{
+		authGroup := v1.Group("/auth")
+		{
+			authGroup.GET("/register", handlers.Register)
+		}
+	}
 }

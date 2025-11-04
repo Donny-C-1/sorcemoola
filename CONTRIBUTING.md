@@ -17,11 +17,15 @@ All contributions are welcome and appreciated. 🎉
 - [Code of Conduct](#code-of-conduct)
 - [Before You Start](#before-you-start)
 - [Getting Started](#getting-started)
+  - [1. Clone the `dev` Branch](#1-clone-the-dev-branch)
+  - [2. Select an issue](#2-select-an-issue)
+  - [3. Create a Feature Branch](#3-create-a-feature-branch)
 - [I Have a Question](#i-have-a-question)
 - [I Want To Contribute](#i-want-to-contribute)
-- [Reporting Bugs](#reporting-bugs)
-- [Suggesting Enhancements](#suggesting-enhancements)
-- 
+  - [Reporting Bugs](#reporting-bugs)
+    - [How Do I Submit a Good Bug Report?](#how-do-i-submit-a-good-bug-report)
+  - [Suggesting Enhancements](#suggesting-enhancements)
+- [Attribution](#attribution)
 
 ## Code of Conduct
 
@@ -46,7 +50,13 @@ Start by cloning the correct branch for development:
 git clone --branch dev --single-branch https://github.com/Donny-C-1/sorcemoola.git
 ```
 
-### 2. Create a Feature Branch
+### 2. Select an issue
+
+Choose an issue from the issues to work on
+
+Comment `!take` to be assigned the issue and to drop it comment `!drop` to drop it if its too difficult for you.
+
+### 3. Create a Feature Branch
 
 Before making changes create a new feature or fix branch from dev
 ```
@@ -68,21 +78,6 @@ If you then still feel the need to ask a question and need clarification, we rec
 - Provide project and platform versions (nodejs, npm, etc), depending on what seems relevant.
 
 We will then take care of the issue as soon as possible.
-
-<!--
-You might want to create a separate issue tag for questions and include it in this description. People should then tag their issues accordingly.
-
-Depending on how large the project is, you may want to outsource the questioning, e.g. to Stack Overflow or Gitter. You may add additional contact and information possibilities:
-- IRC
-- Slack
-- Gitter
-- Stack Overflow tag
-- Blog
-- FAQ
-- Roadmap
-- E-Mail List
-- Forum
--->
 
 ## I Want To Contribute
 
