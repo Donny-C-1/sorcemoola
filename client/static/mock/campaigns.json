@@ -1,0 +1,101 @@
+[
+    {
+      "id": 1,
+      "title": "Revolutionary Smart Garden System",
+      "description": "A self-watering, self-monitoring garden system that connects to your smartphone and helps you grow perfect vegetables with minimal effort.",
+      "image": "https://images.unsplash.com/photo-1515150144380-bca9f1650ed9?ixid=M3w4MjcwNjd8MHwxfHNlYXJjaHwxMXx8Z2FyZGVufGVufDB8fHx8MTc2Mjk0Mjk3NHww&ixlib=rb-4.1.0&w=600&h=400&fit=max&q=80",
+      "category": "Technology",
+      "currentAmount": 15420,
+      "goalAmount": 25000,
+      "daysRemaining": 18,
+      "percentFunded": 62
+    },
+    {
+      "id": 2,
+      "title": "Handcrafted Sustainable Fashion Collection",
+      "description": "Eco-friendly clothing made from recycled materials. Each piece is handcrafted by artisans receiving fair wages.",
+      "image": "https://images.unsplash.com/photo-1713261749235-901031087be6?ixid=M3w4MjcwNjd8MHwxfHNlYXJjaHw3fHxlY29mcmllbmRseSUyMGZhc2hpb258ZW58MHx8fHwxNzYyOTUwMzU5fDA&ixlib=rb-4.1.0&w=600&h=400&fit=max&q=80",
+      "category": "Creative",
+      "currentAmount": 8750,
+      "goalAmount": 10000,
+      "daysRemaining": 5,
+      "percentFunded": 88
+    },
+    {
+      "id": 3,
+      "title": "Community Urban Farm Initiative",
+      "description": "Help us transform an abandoned lot into a thriving community garden that will provide fresh produce for local food banks.",
+      "image": "https://images.unsplash.com/photo-1464226184884-fa280b87c399?ixid=M3w4MjcwNjd8MHwxfHNlYXJjaHwxMHx8ZmFybXxlbnwwfHx8fDE3NjI5NTAzODh8MA&ixlib=rb-4.1.0&w=600&h=400&fit=max&q=80",
+      "category": "Community",
+      "currentAmount": 5200,
+      "goalAmount": 15000,
+      "daysRemaining": 30,
+      "percentFunded": 35
+    },
+    {
+      "id": 4,
+      "title": "Virtual Reality Educational Platform",
+      "description": "Making learning accessible through immersive VR experiences designed for K-12 students, with focus on science and history.",
+      "image": "https://images.unsplash.com/photo-1568586609245-50d3183d4aad?ixid=M3w4MjcwNjd8MHwxfHNlYXJjaHw0fHx2aXJ0dWFsJTIwcmVhbGl0eSUyMGVkdWNhdGlvbnxlbnwwfHx8fDE3NjI5NTA4Mjh8MA&ixlib=rb-4.1.0&w=600&h=400&fit=max&q=80",
+      "category": "Education",
+      "currentAmount": 32000,
+      "goalAmount": 50000,
+      "daysRemaining": 22,
+      "percentFunded": 64
+    },
+    {
+      "id": 5,
+      "title": "Portable Water Purification Device",
+      "description": "Innovative technology that can purify contaminated water in seconds, designed for emergency situations and developing regions.",
+      "image": "https://images.unsplash.com/photo-1577734034780-08484e6be3b5?ixid=M3w4MjcwNjd8MHwxfHNlYXJjaHw2fHxpbm5vdmF0aXZlJTIwd2F0ZXIlMjBwdXJpZmljYXRpb258ZW58MHx8fHwxNzYyOTUwODg3fDA&ixlib=rb-4.1.0&w=600&h=400&fit=max&q=80",
+      "category": "Health",
+      "currentAmount": 42500,
+      "goalAmount": 45000,
+      "daysRemaining": 3,
+      "percentFunded": 94
+    },
+    {
+      "id": 6,
+      "title": "Artisanal Coffee Subscription Service",
+      "description": "Supporting small-batch coffee farmers while delivering the freshest, ethically sourced beans directly to your door monthly.",
+      "image": "https://images.unsplash.com/photo-1629008642899-178df6fc5f2f?ixid=M3w4MjcwNjd8MHwxfHNlYXJjaHw0fHxjb2ZmZWUlMjBmYXJtfGVufDB8fHx8MTc2Mjk1MDkyMXww&ixlib=rb-4.1.0&w=600&h=400&fit=max&q=80",
+      "category": "Business",
+      "currentAmount": 3800,
+      "goalAmount": 12000,
+      "daysRemaining": 15,
+      "percentFunded": 32
+    },
+    {
+      "id": 7,
+      "title": "Open Source Coding Curriculum",
+      "description": "Developing a comprehensive, free coding curriculum for underserved communities to bridge the digital divide and create opportunities.",
+      "image": "https://images.unsplash.com/photo-1641951820920-c90394aef512?ixid=M3w4MjcwNjd8MHwxfHNlYXJjaHwyfHxjb2RpbmclMjBjdXJyaWN1bHVtfGVufDB8fHx8MTc2Mjk1MDk1MXww&ixlib=rb-4.1.0&w=600&h=400&fit=max&q=80",
+      "category": "Education",
+      "currentAmount": 18200,
+      "goalAmount": 20000,
+      "daysRemaining": 8,
+      "percentFunded": 91
+    },
+    {
+      "id": 8,
+      "title": "Biodegradable Packaging Solutions",
+      "description": "Revolutionizing product packaging with materials that fully decompose in 30 days, leaving zero environmental impact.",
+      "image": "https://images.unsplash.com/photo-1654078054613-a56cfcabdb84?ixid=M3w4MjcwNjd8MHwxfHNlYXJjaHw3fHxiaW9kZWdyYWRlYWJsZSUyMHBhY2thZ2luZ3xlbnwwfHx8fDE3NjI5NTA5ODd8MA&ixlib=rb-4.1.0&w=600&h=400&fit=max&q=80",
+      "category": "Technology",
+      "currentAmount": 9500,
+      "goalAmount": 30000,
+      "daysRemaining": 45,
+      "percentFunded": 32
+    },
+    {
+      "id": 9,
+      "title": "Mobile Health Clinic for Rural Areas",
+      "description": "Bringing essential healthcare services to remote communities through a fully equipped mobile clinic staffed by volunteer professionals.",
+      "image": "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?ixid=M3w4MjcwNjd8MHwxfHNlYXJjaHw2fHxoZWFsdGglMjBjYXJlfGVufDB8fHx8MTc2Mjk1MTA2NHww&ixlib=rb-4.1.0&w=600&h=400&fit=max&q=80",
+      "category": "Health",
+      "currentAmount": 75000,
+      "goalAmount": 100000,
+      "daysRemaining": 12,
+      "percentFunded": 75
+    }
+  ]
