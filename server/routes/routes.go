@@ -16,5 +16,10 @@ func SetupRoutes(router *gin.Engine) {
 		{
 			authGroup.GET("/register", handlers.Register)
 		}
+
+		campaignGroup := v1.Group("/campaigns")
+		{
+			campaignGroup.POST("/", handlers.CreateCampaign)
+		}
 	}
 }

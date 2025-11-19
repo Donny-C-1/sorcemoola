@@ -58,7 +58,6 @@ func Register(c *gin.Context) {
 
 	log.Printf("New user created with ID: %d\n", newUser.ID)
 
-	// todo Return response
 	c.JSON(http.StatusOK, gin.H{
 		"message": "User registered successfully",
 		"user":    newUser,

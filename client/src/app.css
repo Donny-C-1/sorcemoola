@@ -1,3 +1,165 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
+
+* {
+	box-sizing: border-box;
+}
+
+:root {
+	--primary-color: #34a273;
+	--primary-light: #4ab889;
+	--primary-dark: #2a8960;
+	--primary-bg: #f1f9f6;
+
+	--secondary-color: #f8d347;
+	--secondary-light: #ffe069;
+	--secondary-dark: #e5b719;
+
+	--accent-color: #7c5ae2;
+	--accent-light: #9b7fee;
+	--accent-dark: #6241c7;
+
+	--text-dark: #333333;
+	--text-medium: #666666;
+	--text-light: #999999;
+	--text-white: #ffffff;
+
+	--shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+	--shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
+	--shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
+
+	--radius-sm: 4px;
+	--radius-md: 8px;
+	--radius-lg: 16px;
+
+	--spacing-xs: 8px;
+	--spacing-sm: 16px;
+	--spacing-md: 24px;
+	--spacing-lg: 32px;
+	--spacing-xl: 48px;
+	--spacing-2xl: 64px;
+	--spacing-3xl: 96px;
+
+	--container-width: 75rem;
+	--container-padding: 24px;
+
+	scroll-behavior: smooth;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: 'Poppins', sans-serif;
+	line-height: 1.6;
+	color: var(--text-dark);
+	overflow-x: hidden;
+}
+
+h1,
+h2,
+h3 {
+	margin-top: 0;
+	font-weight: 600;
+	line-height: 1.3;
+}
+
+h1 {
+	font-size: 3.5rem;
+}
+
+h2 {
+	font-size: 2.5rem;
+	margin-bottom: var(--spacing-lg);
+}
+
+h3 {
+	font-size: 1.75rem;
+}
+
+section {
+	padding: var(--spacing-2xl) var(--container-padding);
+}
+
+.container {
+	max-width: 75rem;
+	max-width: var(--container-width);
+	margin: 0 auto;
+	padding: 0 1.5rem;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+	transition: color 0.3s ease;
+}
+
+button {
+	cursor: pointer;
+	background-color: transparent;
+	color: none;
+}
+
+.section-title {
+	text-align: center;
+	margin-bottom: var(--spacing-xl);
+}
+
+.section-title h2 {
+	position: relative;
+	display: inline-block;
+	margin-bottom: var(--spacing-sm);
+}
+
+.section-title h2::after {
+	content: '';
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	bottom: -10px;
+	width: 50px;
+	height: 3px;
+	background-color: var(--primary-color);
+}
+
+.section-title p {
+	font-size: 1.125rem;
+	color: var(--text-medium);
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+.animate-on-scroll {
+	opacity: 0;
+	transform: translateY(30px);
+	transition:
+		opacity 0.8s ease,
+		transform 0.8s ease;
+}
+
+.animate-in {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+main {
+	padding-top: 0;
+}
+
+@media (max-width: 768px) {
+	section {
+		padding: var(--spacing-xl) var(--container-padding);
+	}
+
+	h1 {
+		font-size: 2.5rem;
+	}
+
+	h2 {
+		font-size: 2rem;
+	}
+
+	h3 {
+		font-size: 1.5rem;
+	}
+}
