@@ -1,4 +1,3 @@
-<!-- src/components/ui/ProgressBar.svelte -->
 <script>
   let { value = 0, height = '6px' } = $props();
   

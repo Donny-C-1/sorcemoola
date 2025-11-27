@@ -1,4 +1,3 @@
-<!-- src/components/CallToAction.svelte -->
 <script>
   import Button from './ui/Button.svelte';
   
@@ -8,7 +7,6 @@
   function handleSubscribe(e) {
     e.preventDefault();
 
-    // In a real application, you would send the email to your backend
     if (email && email.includes('@')) {
       submitted = true;
       email = '';
@@ -26,8 +24,8 @@
       <p>Join thousands of creators and backers on SorceMoola and be part of our thriving community.</p>
       
       <div class="cta-buttons">
-        <Button href="/start-project" primary={true} large={true}>Start a Project</Button>
-        <Button href="/explore" primary={false} large={true}>Back a Project</Button>
+        <Button href="/start" primary={true} inverted={true} large={true}>Start a Project</Button>
+        <Button href="/explore" primary={false} inverted={true} large={true}>Back a Project</Button>
       </div>
       
       <div class="newsletter">

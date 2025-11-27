@@ -32,8 +32,8 @@
   }
   
   .category-icon {
-    width: 60px;
-    height: 60px;
+    width: 3.75rem;
+    height: 3.75rem;
     background-color: var(--primary-bg);
     border-radius: 50%;
     display: flex;
@@ -48,13 +48,9 @@
   }
   
   .category-icon img {
-    width: 30px;
-    height: 30px;
+    width: 1.875rem;
+    height: 1.875rem;
     transition: all 0.3s ease;
-  }
-  
-  .category-card:hover .category-icon img {
-    filter: brightness(5);
   }
   
   .category-card h3 {
@@ -66,5 +62,13 @@
   .project-count {
     color: var(--text-medium);
     font-size: 0.875rem;
+  }
+
+  @media (max-width: 576px) {
+    .category-card {
+      padding: var(--spacing-sm);
+    }
+
+    
   }
 </style>

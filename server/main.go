@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/donny-c-1/sorcemoola/server/auth"
 	"github.com/donny-c-1/sorcemoola/server/database"
 	"github.com/donny-c-1/sorcemoola/server/routes"
 	"github.com/gin-gonic/gin"
@@ -36,6 +37,9 @@ func main() {
 
 	// Prevent Untrusted Proxies
 	router.SetTrustedProxies([]string{})
+
+	// Setup Cors
+	router.Use(auth.CORSMiddleware)
 
 	// Setup routes
 	routes.SetupRoutes(router)

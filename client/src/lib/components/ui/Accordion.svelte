@@ -2,7 +2,6 @@
   let { children } = $props();
 </script>
 
-<!-- src/components/ui/Accordion.svelte -->
 <div class="accordion">
   {@render children?.()}
 </div>

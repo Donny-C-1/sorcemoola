@@ -87,7 +87,7 @@
   
   .accordion-content {
     padding: var(--spacing-md) var(--spacing-lg);
-    padding-top: 0;
+    padding-top: var(--spacing-sm);
     color: var(--text-medium);
     line-height: 1.6;
   }

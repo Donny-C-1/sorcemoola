@@ -1,4 +1,3 @@
-<!-- src/components/ui/ProjectCard.svelte -->
 <script>
   import ProgressBar from './ProgressBar.svelte';
   
@@ -34,11 +33,10 @@
       </div>
     </div>
     
-    <a href={`/projects/${project.id}`} class="project-link">View Project</a>
+    <a href={`/campaigns/${project.id}`} class="project-link">View Project</a>
   </div>
 </div>
 
-<!-- src/components/ui/ProjectCard.svelte (continued) -->
 <style>
   .project-card {
     background-color: white;
@@ -49,11 +47,6 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-  }
-  
-  .project-card:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--shadow-lg);
   }
   
   .project-image {
