@@ -3,24 +3,7 @@
   import { onMount } from 'svelte';
   import Counter from './ui/Counter.svelte';
   import { stats } from '$lib/data/stats';
-  
-  let steps = [
-    {
-      icon: 'create',
-      title: 'Create',
-      description: 'Share your idea with our community. Create a detailed project page with goals, rewards, and your story.'
-    },
-    {
-      icon: 'fund',
-      title: 'Fund',
-      description: 'Connect with backers who believe in your vision. Receive funding to bring your project to life.'
-    },
-    {
-      icon: 'launch',
-      title: 'Launch',
-      description: 'Deliver on your promises. Launch your project and stay connected with your supportive community.'
-    }
-  ];
+  import { steps } from '$lib/data/steps';
 </script>
 
 <section id="how-it-works" class="how-it-works">

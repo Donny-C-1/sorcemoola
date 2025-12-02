@@ -62,10 +62,6 @@
     transition: all 0.3s ease;
   }
   
-  .feature:hover .feature-icon img {
-    filter: brightness(5);
-  }
-  
   .feature h3 {
     margin-top: 0;
     margin-bottom: var(--spacing-sm);

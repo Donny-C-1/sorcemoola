@@ -25,6 +25,9 @@
 	--text-light: #999999;
 	--text-white: #ffffff;
 
+	--neutral-color: #6c757d83;
+  --neutral-dark: #5a6268;
+
 	--shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
 	--shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
 	--shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
@@ -33,11 +36,12 @@
 	--radius-md: 8px;
 	--radius-lg: 16px;
 
-	--spacing-xs: 8px;
-	--spacing-sm: 16px;
-	--spacing-md: 24px;
-	--spacing-lg: 32px;
-	--spacing-xl: 48px;
+	--spacing-xs: .5rem;
+	--spacing-smr: .75rem;
+	--spacing-sm: 1rem;
+	--spacing-md: 1.5rem;
+	--spacing-lg: 2rem;
+	--spacing-xl: 3rem;
 	--spacing-2xl: 64px;
 	--spacing-3xl: 96px;
 
@@ -82,7 +86,6 @@ section {
 }
 
 .container {
-	max-width: 75rem;
 	max-width: var(--container-width);
 	margin: 0 auto;
 	padding: 0 1.5rem;
@@ -161,5 +164,11 @@ main {
 
 	h3 {
 		font-size: 1.5rem;
+	}
+}
+
+@media (max-width: 36rem) {
+	section {
+		padding: var(--spacing-xl) 0;
 	}
 }

@@ -1,38 +1,37 @@
-/* src/lib/data/faq.js */
-export const faq = [
+export const faqs = [
 	{
-		question: "How does SorceMoola's funding work?",
+		question: "How does SorceMoola's funding work for aid campaigns?",
 		answer:
-			"SorceMoola uses an all-or-nothing funding model. This means project creators set a funding goal and a deadline. If the project reaches its funding goal, backers' credit cards are charged when the deadline arrives. If the project falls short, no one is charged."
+			'SorceMoola operates on a Keep-It-All (Flexible) funding model designed for urgent aid. All funds donated are transferred directly to the verified beneficiary, regardless of whether the final goal is met. This ensures that every contribution immediately provides help when it is most needed.'
 	},
 	{
-		question: 'What fees does SorceMoola charge?',
+		question: 'What fees does SorceMoola charge on aid raised?',
 		answer:
-			'SorceMoola charges a 5% platform fee on the total amount raised, plus payment processing fees (typically 3-5%). These fees only apply if your project reaches its funding goal.'
+			'SorceMoola charges a low platform fee (typically 5% - adjust as needed) on the total funds raised to cover operational costs, verification, and support. This fee is deducted only when the funds are withdrawn. Standard payment processing fees (for the payment gateway) are also applied.'
 	},
 	{
-		question: 'Can I launch a project from anywhere in the world?',
+		question: 'Who is eligible to start a campaign on SorceMoola?',
 		answer:
-			"Yes! SorceMoola is available globally. However, you'll need a bank account in a supported country to receive funds. Check our help center for the full list of supported countries."
+			'SorceMoola is focused on providing a social safety net primarily for **Nigerians facing critical needs or emergencies.** This includes medical costs, urgent education fees, legal aid for social justice, and relief from sudden crises. You must have a Nigerian bank account for disbursement.'
 	},
 	{
-		question: "What happens if a project doesn't reach its funding goal?",
+		question: "What happens if a campaign doesn't reach its funding goal?",
 		answer:
-			"If a project doesn't reach its funding goal by the deadline, no backers are charged, and the project creator receives no funds. You can always relaunch your project with improvements based on feedback."
+			'Unlike traditional crowdfunding, all funds raised on SorceMoola are **immediately available** to the campaign creator for withdrawal, even if the final goal is not met. Our Keep-It-All model ensures that the aid collected provides help instantly.'
 	},
 	{
-		question: 'As a backer, when am I charged?',
+		question: 'When is my donation charged and sent to the beneficiary?',
 		answer:
-			"As a backer, your card is only charged if the project reaches its funding goal. The charge occurs when the project's funding deadline arrives, not when you make the pledge."
+			'Donations are **charged immediately** upon pledge, not at the campaign deadline. This ensures the funds are quickly processed and ready for withdrawal by the campaign creator. This speed is critical for emergency aid and relief campaigns.'
 	},
 	{
-		question: 'What kind of projects can be funded on SorceMoola?',
+		question: 'What kind of aid campaigns can be funded on SorceMoola?',
 		answer:
-			'SorceMoola welcomes creative projects in art, comics, crafts, dance, design, fashion, film, food, games, journalism, music, photography, publishing, technology, and theater. Projects should create something to share with others and have a clear plan with a defined beginning and end.'
+			'SorceMoola focuses on **Critical Needs and Social Aid.** Campaigns must be for verified personal, community, or non-profit needs, such as: **Urgent Medical Treatments, Educational Fees (e.g., final clearance), Disaster/Crisis Relief, and Legal Support for Social Justice.** Projects for creative goods or business equity are not supported.'
 	},
 	{
-		question: 'How do I get help with my project?',
+		question: 'How does SorceMoola ensure campaigns are trustworthy and not fraudulent?',
 		answer:
-			'SorceMoola offers personalized support for project creators. You can contact our Creator Success team at any time for guidance on project setup, marketing strategies, and fulfillment planning.'
+			'Trust is our top priority. Every campaign undergoes a verification process where creators must submit supporting documentation (e.g., medical reports, school bills, police reports). We use the **100% Campaign Verification Rate** model to ensure funds go to legitimate causes.'
 	}
 ];

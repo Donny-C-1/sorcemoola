@@ -41,8 +41,6 @@
 </footer>
 
 <style>
-    
-	/* Footer */
 	footer {
 		background: #272a33;
 		color: white;
@@ -81,8 +79,8 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 36px;
-		height: 36px;
+		width: 2.25rem;
+		height: 2.25rem;
 		border-radius: 50%;
 		background: rgba(255, 255, 255, 0.1);
 		transition: background 0.3s ease;
@@ -128,6 +126,7 @@
 		border: none;
 		border-radius: 4px 0 0 4px;
 		outline: none;
+		width: 100%;
 	}
 
 	.newsletter-form button {
