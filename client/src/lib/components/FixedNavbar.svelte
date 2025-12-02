@@ -2,6 +2,7 @@
 	import { page } from "$app/state";
 	import { slide } from "svelte/transition";
 	import { spring } from "svelte/motion";
+	import Button from "./ui/Button.svelte";
 
 	let isMenuOpen = false;
 
@@ -29,15 +30,14 @@
 
 		<div class="nav-wrapper" class:open={isMenuOpen}>
 			<div class="nav-links">
-				<a href="/" class:active={page.url.pathname === "/"}>Home</a>
-				<a href="/explore" class="active" class:active={page.url.pathname === "/explore"}>Explore</a>
-				<a href="/start" class:active={page.url.pathname === "/start-campaign"}>Start Campaign</a>
 				<a href="/about" class:active={page.url.pathname === "/about"}>About</a>
+				<a href="/explore" class="active" class:active={page.url.pathname === "/explore"}>Explore</a>
+				<a href="/start" class:active={page.url.pathname === "/start"}>Start Campaign</a>
 			</div>
 
 			<div class="auth-buttons">
 				<a href="/login" class="login-btn">Login</a>
-				<a href="/signup" class="signup-btn">Sign Up</a>
+				<Button primary={true} href="/signup">Sign Up</Button>
 			</div>
 		</div>
 
@@ -114,19 +114,6 @@
 
 	.login-btn:hover {
 		color: #3cb983;
-	}
-
-	.signup-btn {
-		background: #3cb983;
-		color: white;
-		padding: 0.5rem 1.5rem;
-		border-radius: 4px;
-		font-weight: 500;
-		transition: background-color 0.3s ease;
-	}
-
-	.signup-btn:hover {
-		background: #34a273;
 	}
 
 	.nav-toggle {
