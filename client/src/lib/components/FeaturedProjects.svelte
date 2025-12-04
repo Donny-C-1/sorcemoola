@@ -30,10 +30,9 @@
 <section id="featured-projects" class="featured-projects">
 	<div class="container">
 		<div class="section-title animate-on-scroll">
-			<h2>Featured Projects</h2>
+			<h2>Featured Campaigns</h2>
 			<p>
-				Discover innovative projects from creators around the world that are currently seeking
-				funding on SorceMoola.
+				Find and fund critical needs and community dreams from verified individuals, turning collective action into real, life-changing support.
 			</p>
 		</div>
 
@@ -48,7 +47,7 @@
 		</div>
 
 		<div class="view-all-container animate-on-scroll">
-			<Button href="/explore" primary={false}>View All Projects</Button>
+			<Button href="/explore" primary={false}>View All Campaigns</Button>
 		</div>
 	</div>
 </section>

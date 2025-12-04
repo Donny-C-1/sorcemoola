@@ -94,6 +94,13 @@
 		]
 	};
 
+	let options = {
+		perPage: 1,
+		type: "loop",
+		gap: "1rem",
+		autoplay: "true"
+	}
+
 	let pledgeAmount = 0;
 	let customAmount = "";
 	let selectedReward = null;
@@ -171,7 +178,7 @@
 <main class="container">
 	<section class="campaign-header">
 		<div class="image-gallery">
-			<Splide>
+			<Splide {options}>
 				{#each campaign.images as image, i}
 					<SplideSlide>
 						<img
@@ -301,6 +308,27 @@
 <style>
 	.campaign-header {
 		margin-bottom: var(--spacing-lg);
+	}
+
+	:global(.splide__arrow) {
+		background: #fff;
+		box-shadow: var(--shadow-md);
+		transition: all 0.2s ease;
+		width: 2.5rem;
+		height: 2.5rem;
+	}
+
+	:global(.splide__arrow:hover) {
+		background-color: var(--primary-color);
+		box-shadow: var(--shadow-lg);
+	}
+
+	:global(.splide__arrow svg) {
+		fill: var(--primary-color);
+	}
+
+	:global(.splide__arrow:hover svg) {
+		fill: white;
 	}
 
 	.image-gallery {

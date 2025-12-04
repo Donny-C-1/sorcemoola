@@ -2,7 +2,7 @@
   let { category, style = '' } = $props();
 </script>
 
-<a href={`/categories/${category.slug}`} class="category-card" {style}>
+<a href={`/explore/?category=${category.slug}`} class="category-card" {style}>
   <div class="category-icon">
     <img src={`/images/icons/${category.icon}.svg`} alt={category.name} loading="lazy" />
   </div>
