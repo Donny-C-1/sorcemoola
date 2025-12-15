@@ -36,6 +36,7 @@
 	},
 	"dependencies": {
 		"@paystack/inline-js": "^2.22.7",
-		"@splidejs/svelte-splide": "^0.2.9"
+		"@splidejs/svelte-splide": "^0.2.9",
+		"lucide-svelte": "^0.561.0"
 	}
 }

@@ -429,31 +429,6 @@
 		box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 	}
 
-	.placeholder-icon {
-		width: 4rem;
-		height: 4rem;
-		border-radius: 50%;
-		background-color: var(--bg-light);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-size: 1.5rem;
-		font-weight: 700;
-		margin-bottom: 1rem;
-	}
-
-	.placeholder-title strong {
-		color: var(--primary);
-	}
-
-	.placeholder-subtitle {
-		font-size: 0.875rem;
-		margin-top: 0.5rem;
-		opacity: 0.7;
-		max-width: 300px;
-		text-align: center;
-	}
-
 	/* --- Footer Styling --- */
 	.wizard-footer {
 		background-color: rgba(255, 255, 255, 0.9);

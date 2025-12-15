@@ -4,7 +4,9 @@
 	import { spring } from "svelte/motion";
 	import Button from "./ui/Button.svelte";
 
-	let isMenuOpen = false;
+	let { isLoggedIn } = $props();
+
+	let isMenuOpen = $state(false);
 
 	function toggleMenu() {
 		isMenuOpen = !isMenuOpen;
@@ -13,7 +15,6 @@
 	function closeMenu() {
 		isMenuOpen = false;
 	}
-
 </script>
 
 <nav class="navbar">
@@ -35,12 +36,15 @@
 				<a href="/start" class:active={page.url.pathname === "/start"}>Start Campaign</a>
 			</div>
 
-			<div class="auth-buttons">
-				<a href="/login" class="login-btn">Login</a>
-				<Button primary={true} href="/signup">Sign Up</Button>
-			</div>
+			{#if isLoggedIn}
+				<Button>Profile</Button>
+			{:else}
+				<div class="auth-buttons">
+					<a href="/login" class="login-btn">Login</a>
+					<Button primary={true} href="/signup">Sign Up</Button>
+				</div>
+			{/if}
 		</div>
-
 	</div>
 </nav>
 
@@ -121,7 +125,7 @@
 		flex-direction: column;
 		gap: 5px;
 		z-index: 1001;
-		padding: .5rem;
+		padding: 0.5rem;
 		cursor: pointer;
 	}
 
@@ -158,9 +162,9 @@
 			justify-content: flex-start;
 			align-items: flex-start;
 			background-color: white;
-			box-shadow: -2px 0 10px rgba(0, 0, 0, .1);
+			box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
 			padding: 6rem 2rem 2rem;
-			transition: right .3s ease-in-out;
+			transition: right 0.3s ease-in-out;
 			z-index: 1000;
 		}
 
@@ -197,7 +201,7 @@
 		.nav-toggle {
 			display: flex;
 		}
-		
+
 		.nav-wrapper.open::before {
 			content: "";
 			position: fixed;

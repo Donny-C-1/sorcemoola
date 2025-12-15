@@ -32,6 +32,11 @@ func main() {
 		log.Fatalf("Failed to run database migrations: %v", err)
 	}
 
+	// Init JWT Secret
+	if err := auth.InitJWT(); err != nil {
+		log.Fatalf("Failed to initialize JWT: %v", err)
+	}
+
 	// Initialize gin router
 	router := gin.Default()
 

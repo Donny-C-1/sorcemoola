@@ -2,9 +2,11 @@
 	let {
 		handler,
 		primary = true,
-		neutral = false,  // Add neutral prop
+		neutral = false,
 		inverted = false,
 		large = false,
+		wide = false,
+		disabled = false,
 		href = undefined,
 		type = 'button',
 		children
@@ -12,9 +14,9 @@
 </script>
 
 {#if href}
-	<a {href} class:primary class:neutral class:inverted class:large>{@render children?.()}</a>
+	<a {href} class:primary class:neutral class:inverted class:large {disabled}>{@render children?.()}</a>
 {:else}
-	<button onclick={handler} {type} class:primary class:neutral class:inverted class:large
+	<button onclick={handler} {type} class:primary class:neutral class:inverted class:large class:wide {disabled}
 		>{@render children?.()}</button
 	>
 {/if}
@@ -178,6 +180,10 @@
 	.large {
 		font-size: 1.125rem;
 		padding: 14px 28px;
+	}
+
+	.wide {
+		width: 100%;
 	}
 
 	@media (max-width: 576px) {

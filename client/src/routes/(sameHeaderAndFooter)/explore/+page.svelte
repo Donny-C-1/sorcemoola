@@ -407,4 +407,29 @@
 	.no-results h2 {
 		margin-bottom: 0.5rem;
 	}
+
+	@media (max-width: 1024px) {
+		.campaign-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+	
+	@media (max-width: 640px) {
+		.campaign-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.hero-section h1 {
+			font-size: 2rem;
+		}
+
+		.categories {
+			gap: 0.5rem;
+		}
+
+		.category-btn {
+			font-size: 0.85rem;
+			padding: 0.4rem 0.8rem;
+		}
+	}
 </style>
