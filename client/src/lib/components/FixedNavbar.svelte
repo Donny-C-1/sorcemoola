@@ -37,7 +37,7 @@
 			</div>
 
 			{#if isLoggedIn}
-				<Button>Profile</Button>
+				<Button href="/dashboard">Profile</Button>
 			{:else}
 				<div class="auth-buttons">
 					<a href="/login" class="login-btn">Login</a>
