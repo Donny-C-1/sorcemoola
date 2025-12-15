@@ -33,7 +33,7 @@
 			<div class="nav-links">
 				<a href="/about" class:active={page.url.pathname === "/about"}>About</a>
 				<a href="/explore" class="active" class:active={page.url.pathname === "/explore"}>Explore</a>
-				<a href="/start" class:active={page.url.pathname === "/start"}>Start Campaign</a>
+				<a href="/dashboard/create" class:active={page.url.pathname === "/start"}>Start Campaign</a>
 			</div>
 
 			{#if isLoggedIn}
