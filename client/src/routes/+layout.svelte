@@ -1,8 +1,24 @@
 <script>
 	import '../app.css';
 	import favicon from '$lib/assets/favicon.svg';
+	import { onMount } from 'svelte';
+	import { layout } from '$lib/stores/layout.svelte';
 
 	let { children } = $props();
+
+	onMount(() => {
+		if (typeof window === "undefined") return;
+
+		const update = () => (layout.screenWidth = window.innerWidth);
+
+		update();
+
+		window.addEventListener("resize", update);
+
+		return () => {
+			window.removeEventListener("resize", update);
+		}
+	})
 </script>
 
 <svelte:head>

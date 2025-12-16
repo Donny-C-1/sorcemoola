@@ -22,13 +22,13 @@ export async function handle({ event, resolve }) {
 
 		if (!response.ok) {
 			console.warn(`[AUTH HOOK] Token invalid or expired. Status: ${response.status}`);
-			event.cookies.delete(AUTH_COOKIE_NAME);
+			event.cookies.delete(AUTH_COOKIE_NAME, { path: "/" });
+		} else {
+			event.locals.user = {
+				id: body.user_id,
+				email: body.email
+			};
 		}
-
-		event.locals.user = {
-			id: body.user_id,
-			email: body.email
-		};
 	} catch (err) {
 		console.error(`[AUTH HOOK] Verification failed (Network/Other): ${err}`);
 

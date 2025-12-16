@@ -1,6 +1,7 @@
 import { redirect, fail } from "@sveltejs/kit";
 
 import { API_URL } from "$env/static/private";
+import { AUTH_COOKIE_NAME } from "$lib/config/constants.js";
 
 export const actions = {
 	create: async ({ request, cookies }) => {
@@ -50,8 +51,7 @@ export const actions = {
 			});
 		}
 
-		console.log(user, token);
-		cookies.set("jwt", token, {
+		cookies.set(AUTH_COOKIE_NAME, token, {
 			httpOnly: true,
 			secure: true,
 			sameSite: "lax",
