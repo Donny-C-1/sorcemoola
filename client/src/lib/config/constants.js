@@ -1,5 +1,3 @@
-import { AUTH_COOKIE_NAME } from "$env/static/private";
-
 export const BREAKPOINTS = {
 	mobile: 620,
 	tablet: 992,
@@ -10,4 +8,4 @@ export const DEFAULT_AVATAR = "";
 
 export const APP_NAME = "";
 
-export const AUTH_COOKIE_NAME = AUTH_COOKIE_NAME || "jwt";
+export const AUTH_COOKIE_NAME = "jwt";
