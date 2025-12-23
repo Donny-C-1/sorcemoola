@@ -12,7 +12,7 @@
 				Whether it’s an urgent campaign or a collaborative project, SorceMoola helps you achieve your funding goal, securely.
 			</p>
 			<div class="hero-buttons">
-				<Button primary={true} large={true} href="/start">Start a Campaign</Button>
+				<Button primary={true} large={true} href="/dashboard/create">Start a Campaign</Button>
 				<Button primary={false} large={true} href="/explore">Donate Now</Button>
 			</div>
 		</div>

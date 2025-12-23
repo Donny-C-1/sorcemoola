@@ -9,6 +9,7 @@
 	import Logo from "./ui/Logo.svelte";
 	import { fly } from "svelte/transition";
 	import { cubicInOut } from "svelte/easing";
+	import MenuButton from "./ui/MenuButton.svelte";
 
 	let { isLoggedIn, user = { slug: "", avatar: "/images/avatar.png", username: "Ugwuenuvuenvuennoovuvuenvuenosas" } } = $props();
 
@@ -45,11 +46,13 @@
 	<div class="container">
 		<Logo />
 
-		<button class="nav-toggle" aria-label="toggle nav" aria-expanded={isMenuOpen} tabindex="0" onclick={toggleMenu}>
+		<MenuButton active={isMenuOpen} clickHandler={toggleMenu} visible={!layout.isDesktop} />
+
+		<!-- <button class="nav-toggle" aria-label="toggle nav" aria-expanded={isMenuOpen} tabindex="0" onclick={toggleMenu}>
 			<span class:first={isMenuOpen}></span>
 			<span class:middle={isMenuOpen}></span>
 			<span class:last={isMenuOpen}></span>
-		</button>
+		</button> -->
 
 		{#if !layout.isDesktop && isMenuOpen}
 			<div class="menu_overlay" onclick={closeMenu} role="none"></div>
@@ -134,37 +137,6 @@
 		align-items: center;
 		justify-content: space-between;
 		position: relative;
-	}
-	
-	.nav-toggle {
-		display: none;
-		flex-direction: column;
-		gap: 5px;
-		border: 0;
-		z-index: 1001;
-		padding: 0.5rem;
-		cursor: pointer;
-	}
-
-	.nav-toggle span {
-		display: block;
-		width: 25px;
-		height: 3px;
-		background-color: #333;
-		border-radius: 3px;
-		transition: 0.3s ease-in-out;
-	}
-
-	.nav-toggle .first {
-		transform: translateY(8px) rotate(45deg);
-	}
-
-	.nav-toggle .middle {
-		opacity: 0;
-	}
-
-	.nav-toggle .last {
-		transform: translateY(-8px) rotate(-45deg);
 	}
 
 	.nav-wrapper {
@@ -309,7 +281,7 @@
 		color: var(--primary-color);
 	}
 
-	@media (max-width: 54rem) {
+	@media (max-width: 62rem) {
 		.nav-wrapper {
 			position: fixed;
 			top: 0;
@@ -383,10 +355,6 @@
 			border-radius: 0;
 			padding: 0;
 			gap: var(--spacing-lg);
-		}
-
-		.nav-toggle {
-			display: flex;
 		}
 
 		.auth-buttons {
