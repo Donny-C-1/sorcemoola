@@ -33,7 +33,7 @@
       </div>
     </div>
     
-    <a href={`/campaigns/${project.id}`} class="project-link">View Project</a>
+    <a href={`/campaigns/${project.slug}`} class="project-link">View Campaign</a>
   </div>
 </div>
 
