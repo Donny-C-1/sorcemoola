@@ -6,9 +6,9 @@ import (
 )
 
 type Campaign struct {
-	ID          uuid.UUID `json:"id" gorm:"type:uuid;primary_key;default:gen_random_uuid()"`
-	Name        string    `json:"name" gorm:"not null"`
-	Description string    `json:"description" gorm:"not null"`
+	ID    uuid.UUID `json:"id" gorm:"type:uuid;primary_key;default:gen_random_uuid()"`
+	Name  string    `json:"name" gorm:"not null"`
+	Story string    `json:"story" gorm:"not null"`
 }
 
 func (c *Campaign) BeforeCreate(tx *gorm.DB) error {

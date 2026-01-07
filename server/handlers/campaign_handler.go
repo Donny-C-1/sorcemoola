@@ -15,13 +15,13 @@ import (
 
 func CreateCampaign(c *gin.Context) {
 	var json struct {
-		Name        string `json:"name" binding:"required"`
-		Description string `json:"description" binding:"required"`
+		CampaignName  string `json:"campaignName" binding:"required"`
+		CampaignStory string `json:"campaignStory" binding:"required"`
 	}
 
 	if err := c.ShouldBindJSON(&json); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "Invalid input: " + err.Error(),
+			"message": "Invalid input" + err.Error(),
 		})
 		return
 	}
@@ -29,10 +29,11 @@ func CreateCampaign(c *gin.Context) {
 	// todo Sanitize json data
 
 	newCampaign := models.Campaign{
-		Name:        json.Name,
-		Description: json.Description,
+		Name:  json.CampaignName,
+		Story: json.CampaignStory,
 	}
 
+	log.Print(newCampaign)
 	result := database.DB.Create(&newCampaign)
 
 	if result.Error != nil {
