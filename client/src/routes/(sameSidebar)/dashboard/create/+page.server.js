@@ -15,7 +15,9 @@ export const actions = {
 
 		const payload = {
 			campaignName: data.get("campaign_name"),
-			campaignStory: data.get("campaign_story")
+			campaignStory: data.get("campaign_story"),
+			createdBy: locals.user.id,
+			fundGoal: Math.round(parseFloat(data.get("fund_goal")) * 100)
 		};
 
 		// Validation
@@ -30,6 +32,7 @@ export const actions = {
 		}
 
 		// Fetch
+		let campaign;
 		try {
 			const response = await fetch(`${API_URL}/campaigns`, {
 				method: "POST",
@@ -51,6 +54,8 @@ export const actions = {
 					...payload
 				});
 			}
+
+			campaign = body;
 		} catch (err) {
 			return fail(500, {
 				error: {
@@ -62,6 +67,6 @@ export const actions = {
 			});
 		}
 
-		redirect(303, "/dashboard/campaigns");
+		redirect(303, `/campaigns/${campaign.id}`);
 	}
 };

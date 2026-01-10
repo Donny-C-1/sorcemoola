@@ -38,6 +38,7 @@ func Migrate() error {
 	err := DB.AutoMigrate(
 		&models.User{},
 		&models.Campaign{},
+		&models.Contribution{},
 	)
 	if err != nil {
 		return fmt.Errorf("Failed to run migrations: %w", err)

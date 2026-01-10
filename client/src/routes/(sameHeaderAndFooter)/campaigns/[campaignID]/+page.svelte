@@ -6,14 +6,17 @@
 	import "@splidejs/svelte-splide/css";
 	import Button from "$lib/components/ui/Button.svelte";
 
+	let { data } = $props();
+
+	let campaignData = $state(data.campaign);
+
 	let PaystackPop;
 
 	let campaign = {
 		id: "cam123456",
 		title: "Save the Enchanted Forest",
 		creator: "Wizard Willow",
-		creatorAvatar:
-			"https://images.unsplash.com/photo-1760574772950-f37de9dce85c?ixid=M3w4MjcwNjd8MHwxfHNlYXJjaHwzfHx3aXphcmQlMjB3aWxsb3d8ZW58MHx8fHwxNzYzNjYxNTA4fDA&ixlib=rb-4.1.0&fit=max&q=80",
+		creatorAvatar: "https://images.unsplash.com/photo-1760574772950-f37de9dce85c?ixid=M3w4MjcwNjd8MHwxfHNlYXJjaHwzfHx3aXphcmQlMjB3aWxsb3d8ZW58MHx8fHwxNzYzNjYxNTA4fDA&ixlib=rb-4.1.0&fit=max&q=80",
 		targetAmount: 50000,
 		currentAmount: 32750,
 		backers: 428,
@@ -23,7 +26,7 @@
 				name: "John Doe",
 				amount: 150,
 				timeAgo: "2h ago",
-				avatar: "/images/avatar1.jpg"
+				avatar: "/images/avatar.png"
 			},
 			{
 				name: "Sarah Smith",
@@ -35,11 +38,10 @@
 				name: "Mike Johnson",
 				amount: 250,
 				timeAgo: "1d ago",
-				avatar: "/images/avatar3.jpg"
+				avatar: null
 			}
 		],
-		description:
-			"The Enchanted Forest is home to magical creatures and rare plants with healing properties. Industrial development threatens to destroy this unique ecosystem. Your contributions will help us purchase the land and establish it as a protected sanctuary.",
+		description: "The Enchanted Forest is home to magical creatures and rare plants with healing properties. Industrial development threatens to destroy this unique ecosystem. Your contributions will help us purchase the land and establish it as a protected sanctuary.",
 		story: `<p>For centuries, the Enchanted Forest has been a haven for magical creatures and a source of powerful ingredients for potions and spells. The crystal-clear streams that flow through it are said to have rejuvenating properties, and the rare flora that grows here can't be found anywhere else in the world.</p>
                 <p>Unfortunately, a large corporation has acquired the land and plans to clear it for development. Once this ecosystem is destroyed, we can never get it back.</p>
                 <p>With your help, we aim to purchase the land and establish it as a protected magical sanctuary. Every contribution brings us one step closer to saving this irreplaceable natural wonder.</p>`,
@@ -52,8 +54,7 @@
 			{
 				date: "2023-10-25",
 				title: "Legal progress!",
-				content:
-					"We've secured a temporary injunction to halt development while our case is being reviewed."
+				content: "We've secured a temporary injunction to halt development while our case is being reviewed."
 			},
 			{
 				date: "2023-10-10",
@@ -68,8 +69,7 @@
 				id: "r1",
 				amount: 25,
 				title: "Magical Seeds",
-				description:
-					"A packet of seeds from the Enchanted Forest. Plant them in your garden to attract friendly sprites.",
+				description: "A packet of seeds from the Enchanted Forest. Plant them in your garden to attract friendly sprites.",
 				backers: 215,
 				delivery: "December 2023"
 			},
@@ -77,8 +77,7 @@
 				id: "r2",
 				amount: 100,
 				title: "Crystal Vial",
-				description:
-					"A small vial of water from the Enchanted Stream, known for its restorative properties.",
+				description: "A small vial of water from the Enchanted Stream, known for its restorative properties.",
 				backers: 132,
 				delivery: "December 2023"
 			},
@@ -86,8 +85,7 @@
 				id: "r3",
 				amount: 500,
 				title: "Guardian Status",
-				description:
-					"Your name will be engraved on the Sanctuary Guardian plaque. Includes all previous rewards.",
+				description: "Your name will be engraved on the Sanctuary Guardian plaque. Includes all previous rewards.",
 				backers: 45,
 				delivery: "January 2024"
 			}
@@ -99,13 +97,13 @@
 		type: "loop",
 		gap: "1rem",
 		autoplay: "true"
-	}
+	};
 
 	let pledgeAmount = 0;
 	let customAmount = "";
 	let selectedReward = null;
 	let showDonationForm = false;
-	let activeTab = "story";
+	let activeTab = $state("story");
 
 	const formatCurrency = (amount) => {
 		return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(amount);
@@ -130,9 +128,7 @@
 
 	const submitDonation = () => {
 		// In a real app, this would connect to a payment processor
-		alert(
-			`Thank you for your ${formatCurrency(pledgeAmount)} pledge to save the Enchanted Forest!`
-		);
+		alert(`Thank you for your ${formatCurrency(pledgeAmount)} pledge to save the Enchanted Forest!`);
 
 		initPayment();
 		showDonationForm = false;
@@ -145,8 +141,7 @@
 		const PaystackModule = await import("@paystack/inline-js");
 		PaystackPop = PaystackModule.default || PaystackModule;
 		// Image slideshow automation
-		const interval = setInterval(nextImage, 5000);
-		return () => clearInterval(interval);
+		console.log(data);
 	});
 
 	async function initPayment() {
@@ -181,23 +176,17 @@
 			<Splide {options}>
 				{#each campaign.images as image, i}
 					<SplideSlide>
-						<img
-							class="gallery_image"
-							src={image}
-							alt={`${campaign.title} - image ${i + 1}`}
-							width="100%"
-							height="auto"
-						/>
+						<img class="gallery_image" src={image} alt={`${campaign.title} - image ${i + 1}`} width="100%" height="auto" />
 					</SplideSlide>
 				{/each}
 			</Splide>
 		</div>
 
 		<div class="campaign-title">
-			<h1>{campaign.title}</h1>
+			<h1>{data.campaign.name}</h1>
 			<div class="creator-info">
 				<img src={campaign.creatorAvatar} alt={campaign.creator} />
-				<p>by <strong>{campaign.creator}</strong></p>
+				<p>by <a href="../p/{data.campaign.creator.id}"><strong>{data.campaign.creator.name}</strong></a></p>
 			</div>
 		</div>
 	</section>
@@ -205,9 +194,7 @@
 	<div class="campaign-content">
 		<div class="campaign-details">
 			<div class="campaign-tabs">
-				<button class:active={activeTab === "story"} onclick={() => (activeTab = "story")}>
-					Campaign Story
-				</button>
+				<button class:active={activeTab === "story"} onclick={() => (activeTab = "story")}> Campaign Story </button>
 				<button class:active={activeTab === "updates"} onclick={() => (activeTab = "updates")}>
 					Updates ({campaign.updates.length})
 				</button>
@@ -218,7 +205,11 @@
 					<section class="story-tab" transition:fade={{ duration: 200 }}>
 						<blockquote class="campaign-summary">{campaign.description}</blockquote>
 						<div class="campaign-story">
-							{@html campaign.story}
+							{#each data.campaign.story.split("\n") as paragraph}
+								{#if paragraph.trim() !== ""}
+									<p>{paragraph}</p>
+								{/if}
+							{/each}
 						</div>
 					</section>
 				{:else if activeTab === "updates"}
@@ -247,8 +238,8 @@
 		<aside class="campaign_aside">
 			<div class="funding_status">
 				<div class="funding_amount">
-					<h2 class="amount_raised">{formatCurrency(campaign.currentAmount)}</h2>
-					<p>raised of {formatCurrency(campaign.targetAmount)}</p>
+					<h2 class="amount_raised">{formatCurrency(data.campaign.amountRaised / 100)}</h2>
+					<p>raised of {formatCurrency(data.campaign.fundGoal / 100)}</p>
 				</div>
 
 				<div class="progress_container">
@@ -258,44 +249,46 @@
 				</div>
 
 				<div class="backer_count">
-					<h3>{campaign.backersCount.toLocaleString()}</h3>
+					<h3>{data.campaign.backersCount}</h3>
 					<p>backers</p>
 				</div>
 			</div>
 
 			<div class="action_buttons">
-				<Button large={true} handler={() => showDonationForm = true}>Dontate Now</Button>
+				<Button large={true} handler={() => (showDonationForm = true)}>Dontate Now</Button>
 				<Button primary={false} large={true}>Share</Button>
 			</div>
 
-			<div class="recent_donors">
-				<p class="title_text">43 people have donated</p>
-				<ul class="donor_list">
-					{#each campaign.donors.slice(0, 3) as donor}
-						<li class="donor_item">
-							<div class="donor_avatar">
-								{#if donor.avatar}
-									<img src={donor.avatar} alt={donor.name} />
-								{:else}
-									<div class="avatar_placeholder">{donor.name.charAt(0)}</div>
-								{/if}
-							</div>
-
-							<div class="donor_info">
-								<strong>{donor.name}</strong>
-								<div class="donor_details">
-									<span class="amount">{formatCurrency(donor.amount)}</span>
-									<span class="time">{donor.timeAgo}</span>
+			{#if data.campaign.backersCount > 0}
+				<div class="recent_donors">
+					<p class="title_text">{data.campaign.backersCount} people have contributed</p>
+					<ul class="donor_list">
+						{#each campaign.donors.slice(0, 3) as donor}
+							<li class="donor_item">
+								<div class="donor_avatar">
+									{#if donor.avatar}
+										<img src={donor.avatar} alt={donor.name} />
+									{:else}
+										<div class="avatar_placeholder">{donor.name.charAt(0)}</div>
+									{/if}
 								</div>
-							</div>
-						</li>
-					{/each}
-				</ul>
 
-				{#if campaign.totalBackers > campaign.donors.length}
-					<Button neutral={true} primary={false}>See all {campaign.totalBackers} backers</Button>
-				{/if}
-			</div>
+								<div class="donor_info">
+									<strong>{donor.name}</strong>
+									<div class="donor_details">
+										<span class="amount">{formatCurrency(donor.amount)}</span>
+										<span class="time">{donor.timeAgo}</span>
+									</div>
+								</div>
+							</li>
+						{/each}
+					</ul>
+
+					{#if data.campaign.backersCount > data.campaign.recentContributions.length}
+						<Button neutral={true} primary={false}>See all {data.campaign.backersCount} backers</Button>
+					{/if}
+				</div>
+			{/if}
 
 			<div class="transparency-note">
 				<p>Your contribution supports a vetted and verified campaign.</p>

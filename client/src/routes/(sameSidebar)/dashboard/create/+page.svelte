@@ -16,6 +16,11 @@
         <label for="campaign_story">Campaign Story:</label>
         <textarea name="campaign_story" id="campaign_story" rows="5"></textarea>
     </div>
+    <br/>
+    <div>
+        <label for="fund_goal">Fund Goal (₦):</label>
+        <input type="number" id="fund_goal" name="fund_goal" />
+    </div>
     <div>
         <p>{form?.error?.label}</p>
         <p>{form?.error?.message}</p>

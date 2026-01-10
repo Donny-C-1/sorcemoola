@@ -1,4 +1,7 @@
 <script>
+	import { onMount } from 'svelte';
+
+    let { data } = $props();
     // Svelte 5 Runes for state management
     let searchQuery = $state("");
     let filterStatus = $state("active");
@@ -6,7 +9,7 @@
     let campaigns = $state([
         {
             id: 1,
-            title: "Emergency Flood Relief - Northern Region",
+            name: "Emergency Flood Relief - Northern Region",
             description: "Providing clean water and food supplies to over 500 families affected by recent flooding.",
             raised: 8500,
             goal: 10000,
@@ -14,11 +17,12 @@
             daysLeft: 5,
             status: "active",
             category: "Emergency",
-            image: "https://images.unsplash.com/photo-1547619292-8816ee7cdd50?q=80&w=400&h=250&auto=format&fit=crop"
+            image: "https://images.unsplash.com/photo-1547619292-8816ee7cdd50?q=80&w=400&h=250&auto=format&fit=crop",
+            slug: "efrnr"
         },
         {
             id: 2,
-            title: "Medical Supplies for City Hospital",
+            name: "Medical Supplies for City Hospital",
             description: "Funding essential surgical equipment and basic medicine for the pediatric ward.",
             raised: 12000,
             goal: 50000,
@@ -26,11 +30,12 @@
             daysLeft: 22,
             status: "active",
             category: "Medical",
-            image: "https://images.unsplash.com/photo-1584515933487-759f398f5851?q=80&w=400&h=250&auto=format&fit=crop"
+            image: "https://images.unsplash.com/photo-1584515933487-759f398f5851?q=80&w=400&h=250&auto=format&fit=crop",
+            slug: "msfch"
         },
         {
             id: 3,
-            title: "Clean Water Well Construction",
+            name: "Clean Water Well Construction",
             description: "Building three solar-powered water wells in the arid sub-districts.",
             raised: 15000,
             goal: 15000,
@@ -38,20 +43,23 @@
             daysLeft: 0,
             status: "completed",
             category: "Infrastructure",
-            image: "https://images.unsplash.com/photo-1541810270631-4171616c6806?q=80&w=400&h=250&auto=format&fit=crop"
+            image: "https://images.unsplash.com/photo-1541810270631-4171616c6806?q=80&w=400&h=250&auto=format&fit=crop",
+            slug: "cwwc"
         }
     ]);
 
     // Derived rune for filtering
     let filteredCampaigns = $derived(
-        campaigns.filter(c => {
-            const matchesSearch = c.title.toLowerCase().includes(searchQuery.toLowerCase());
+        data.campaigns.filter(c => {
+            const matchesSearch = c.name.toLowerCase().includes(searchQuery.toLowerCase());
             const matchesFilter = filterStatus === "all" || c.status === filterStatus;
             return matchesSearch && matchesFilter;
         })
     );
 
     const calculateProgress = (raised, goal) => Math.min((raised / goal) * 100, 100);
+
+    onMount(() => $inspect(data));
 </script>
 
 <div class="campaigns-page">
@@ -90,29 +98,29 @@
         {#each filteredCampaigns as campaign (campaign.id)}
             <article class="campaign-card">
                 <div class="card-image">
-                    <img src={campaign.image} alt={campaign.title} />
+                    <img src={campaign.image} alt={campaign.name} />
                     <span class="category-badge">{campaign.category}</span>
                 </div>
 
                 <div class="card-body">
                     <div class="card-title-row">
-                        <h3>{campaign.title}</h3>
+                        <h3><a href="/campaigns/{campaign.slug}">{campaign.name}</a></h3>
                         <div class="status-dot {campaign.status}"></div>
                     </div>
                     <p class="description">{campaign.description}</p>
 
                     <div class="progress-container">
                         <div class="progress-labels">
-                            <span class="raised-amt">${campaign.raised.toLocaleString()}</span>
-                            <span class="goal-amt">of ${campaign.goal.toLocaleString()}</span>
+                            <span class="raised-amt">${campaign.amountRaised.toLocaleString()}</span>
+                            <span class="goal-amt">of ${campaign.fundGoal.toLocaleString()}</span>
                         </div>
                         <div class="progress-bar-bg">
                             <div 
                                 class="progress-fill" 
-                                style="width: {calculateProgress(campaign.raised, campaign.goal)}%">
+                                style="width: {calculateProgress(campaign.amountRaised, campaign.fundGoal)}%">
                             </div>
                         </div>
-                        <span class="percentage-text">{Math.round(calculateProgress(campaign.raised, campaign.goal))}% funded</span>
+                        <span class="percentage-text">{Math.round(calculateProgress(campaign.amountRaised, campaign.fundGoal))}% funded</span>
                     </div>
 
                     <div class="card-footer">
@@ -287,6 +295,7 @@
         margin-bottom: var(--spacing-md);
         display: -webkit-box;
         -webkit-line-clamp: 2;
+        line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
