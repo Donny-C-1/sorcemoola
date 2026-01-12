@@ -8,6 +8,7 @@ import (
 type Campaign struct {
 	ID           uuid.UUID `json:"id" gorm:"type:uuid;primary_key;default:gen_random_uuid()"`
 	Name         string    `json:"name" gorm:"not null"`
+	Description  string    `json:"description"`
 	Story        string    `json:"story" gorm:"not null"`
 	Slug         string    `json:"slug" gorm:"not null;uniquIndex"`
 	FundGoal     int64     `json:"fundGoal" gorm:"not null"`

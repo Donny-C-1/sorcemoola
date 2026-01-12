@@ -10,12 +10,9 @@ export async function load({ locals }) {
 			body = null;
 		}
 
-		console.log(body);
-
 		return { campaigns: body.campaigns };
 	} catch (err) {
 		console.log(err);
 		return null;
 	}
-	return { campaigns: null };
 }

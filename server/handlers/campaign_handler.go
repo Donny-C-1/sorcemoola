@@ -1,10 +1,7 @@
 package handlers
 
 import (
-	"bytes"
-	"encoding/json"
 	"fmt"
-	"io"
 	"log"
 	"net/http"
 
@@ -68,7 +65,6 @@ func GetCampaign(c *gin.Context) {
 		})
 	}).Where("slug = ?", slug).First(&campaign)
 
-	log.Printf("Campaign Details: %+v", campaign)
 	if result.Error != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "Invalid campaign slug",
@@ -115,52 +111,97 @@ func GetUserCampaigns(c *gin.Context) {
 }
 
 func FundCampaign(c *gin.Context) {
-	paramsMap := map[string]string{
-		"email":  "chikwemdonald@gmail.com",
-		"amount": "10000",
+	var json struct {
+		CampaignID string `json:"campaignID"`
+		UserID     string `json:"userID"`
+		Amount     int64  `json:"amount"`
 	}
 
-	jsonData, err := json.Marshal(paramsMap)
+	if err := c.ShouldBindJSON(&json); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err, "message": "Invalid body format"})
+		return
+	}
+	fmt.Printf("%#v\n", json)
+
+	userUUID, err := uuid.Parse(json.UserID)
 	if err != nil {
-		fmt.Println("Error marshalling JSON: ", err)
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid User ID format"})
 		return
 	}
 
-	params := string(jsonData)
-
-	req, err := http.NewRequest("POST", "https://api.paystack.co/transaction/initialize", bytes.NewBuffer([]byte(params)))
+	campaignUUID, err := uuid.Parse(json.CampaignID)
 	if err != nil {
-		fmt.Println("Error creating request: ", err)
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid Campaign ID format"})
 		return
 	}
 
-	// Set Headers
-	req.Header.Set("Authorization", "Bearer sk_test_b7511dc0e790ee7264d6118cfc0cef4e23e8cc7d")
-	req.Header.Set("Content-Type", "application/json")
+	log.Print("Got here")
 
-	// Create HTTP client and execute the request
-	client := &http.Client{}
-	resp, err := client.Do(req)
+	//* Start the transaction
+	err = database.DB.Transaction(func(tx *gorm.DB) error {
+		// * 1. Create the Contribution
+		contribution := models.Contribution{
+			CampaignID: campaignUUID,
+			UserID:     userUUID,
+			Amount:     json.Amount,
+		}
+
+		if err := tx.Create(&contribution).Error; err != nil {
+			return err
+		}
+
+		return tx.Model(&models.Campaign{}).Where("id = ?", campaignUUID).Updates(map[string]interface{}{
+			"amount_raised": gorm.Expr("amount_raised + ?", json.Amount),
+			"backers_count": gorm.Expr("backers_count + ?", 1),
+		}).Error
+	})
+
 	if err != nil {
-		fmt.Println("Error sending request: ", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Could not process contribution"})
 		return
 	}
-	defer resp.Body.Close()
 
-	// Read the response
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		fmt.Println("Error reading response: ", err)
-		return
-	}
+	// jsonData, err := json.Marshal(paramsMap)
+	// if err != nil {
+	// 	fmt.Println("Error marshalling JSON: ", err)
+	// 	return
+	// }
 
-	// Parse and print the JSON response
-	var result map[string]interface{}
-	err = json.Unmarshal(body, &result)
-	if err != nil {
-		fmt.Println("Error parsing response: ", err)
-		return
-	}
+	// params := string(jsonData)
 
-	c.JSON(http.StatusOK, result)
+	// req, err := http.NewRequest("POST", "https://api.paystack.co/transaction/initialize", bytes.NewBuffer([]byte(params)))
+	// if err != nil {
+	// 	fmt.Println("Error creating request: ", err)
+	// 	return
+	// }
+
+	// // Set Headers
+	// req.Header.Set("Authorization", "Bearer sk_test_b7511dc0e790ee7264d6118cfc0cef4e23e8cc7d")
+	// req.Header.Set("Content-Type", "application/json")
+
+	// // Create HTTP client and execute the request
+	// client := &http.Client{}
+	// resp, err := client.Do(req)
+	// if err != nil {
+	// 	fmt.Println("Error sending request: ", err)
+	// 	return
+	// }
+	// defer resp.Body.Close()
+
+	// // Read the response
+	// body, err := io.ReadAll(resp.Body)
+	// if err != nil {
+	// 	fmt.Println("Error reading response: ", err)
+	// 	return
+	// }
+
+	// // Parse and print the JSON response
+	// var result map[string]interface{}
+	// err = json.Unmarshal(body, &result)
+	// if err != nil {
+	// 	fmt.Println("Error parsing response: ", err)
+	// 	return
+	// }
+
+	c.JSON(http.StatusOK, gin.H{"status": "succes"})
 }

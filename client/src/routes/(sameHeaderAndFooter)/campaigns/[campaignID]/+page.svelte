@@ -5,21 +5,15 @@
 	import { Splide, SplideSlide } from "@splidejs/svelte-splide";
 	import "@splidejs/svelte-splide/css";
 	import Button from "$lib/components/ui/Button.svelte";
+	import { enhance } from "$app/forms";
+	import Snackbar from "$lib/components/ui/Snackbar.svelte";
 
-	let { data } = $props();
-
-	let campaignData = $state(data.campaign);
+	let { data, form } = $props();
 
 	let PaystackPop;
 
 	let campaign = {
-		id: "cam123456",
-		title: "Save the Enchanted Forest",
-		creator: "Wizard Willow",
 		creatorAvatar: "https://images.unsplash.com/photo-1760574772950-f37de9dce85c?ixid=M3w4MjcwNjd8MHwxfHNlYXJjaHwzfHx3aXphcmQlMjB3aWxsb3d8ZW58MHx8fHwxNzYzNjYxNTA4fDA&ixlib=rb-4.1.0&fit=max&q=80",
-		targetAmount: 50000,
-		currentAmount: 32750,
-		backers: 428,
 		daysLeft: 15,
 		donors: [
 			{
@@ -41,10 +35,6 @@
 				avatar: null
 			}
 		],
-		description: "The Enchanted Forest is home to magical creatures and rare plants with healing properties. Industrial development threatens to destroy this unique ecosystem. Your contributions will help us purchase the land and establish it as a protected sanctuary.",
-		story: `<p>For centuries, the Enchanted Forest has been a haven for magical creatures and a source of powerful ingredients for potions and spells. The crystal-clear streams that flow through it are said to have rejuvenating properties, and the rare flora that grows here can't be found anywhere else in the world.</p>
-                <p>Unfortunately, a large corporation has acquired the land and plans to clear it for development. Once this ecosystem is destroyed, we can never get it back.</p>
-                <p>With your help, we aim to purchase the land and establish it as a protected magical sanctuary. Every contribution brings us one step closer to saving this irreplaceable natural wonder.</p>`,
 		images: [
 			"https://images.unsplash.com/photo-1619982870053-1545857b7eb4?ixid=M3w4MjcwNjd8MHwxfHNlYXJjaHwzfHxlbmNoYW50ZWQlMjBmb3Jlc3R8ZW58MHx8fHwxNzYzNjYxMjc5fDA&ixlib=rb-4.1.0&fit=max&q=80",
 			"https://images.unsplash.com/photo-1597201423947-3e0028337902?ixid=M3w4MjcwNjd8MHwxfHNlYXJjaHw1fHxlbmNoYW50ZWQlMjBmb3Jlc3R8ZW58MHx8fHwxNzYzNjYxMjc5fDA&ixlib=rb-4.1.0&fit=max&q=80",
@@ -61,34 +51,6 @@
 				title: "25% funded!",
 				content: "Thank you to all our amazing supporters. We're a quarter of the way there!"
 			}
-		],
-		backersCount: 187,
-		totalBackers: 187,
-		rewards: [
-			{
-				id: "r1",
-				amount: 25,
-				title: "Magical Seeds",
-				description: "A packet of seeds from the Enchanted Forest. Plant them in your garden to attract friendly sprites.",
-				backers: 215,
-				delivery: "December 2023"
-			},
-			{
-				id: "r2",
-				amount: 100,
-				title: "Crystal Vial",
-				description: "A small vial of water from the Enchanted Stream, known for its restorative properties.",
-				backers: 132,
-				delivery: "December 2023"
-			},
-			{
-				id: "r3",
-				amount: 500,
-				title: "Guardian Status",
-				description: "Your name will be engraved on the Sanctuary Guardian plaque. Includes all previous rewards.",
-				backers: 45,
-				delivery: "January 2024"
-			}
 		]
 	};
 
@@ -99,11 +61,11 @@
 		autoplay: "true"
 	};
 
-	let pledgeAmount = 0;
+	let pledgeAmount = $state(5000);
 	let customAmount = "";
-	let selectedReward = null;
-	let showDonationForm = false;
+	let showDonationForm = $state(false);
 	let activeTab = $state("story");
+	let isSnackbarVisible = $state(false);
 
 	const formatCurrency = (amount) => {
 		return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(amount);
@@ -113,36 +75,16 @@
 		return Math.min(Math.floor((campaign.currentAmount / campaign.targetAmount) * 100), 100);
 	};
 
-	const selectReward = (reward) => {
-		selectedReward = reward;
-		pledgeAmount = reward.amount;
-		customAmount = "";
-		showDonationForm = true;
-	};
-
-	const handleCustomPledge = () => {
-		selectedReward = null;
-		pledgeAmount = parseFloat(customAmount);
-		showDonationForm = true;
-	};
-
-	const submitDonation = () => {
-		// In a real app, this would connect to a payment processor
-		alert(`Thank you for your ${formatCurrency(pledgeAmount)} pledge to save the Enchanted Forest!`);
-
-		initPayment();
-		showDonationForm = false;
-		selectedReward = null;
-		pledgeAmount = 0;
-		customAmount = "";
-	};
-
 	onMount(async () => {
 		const PaystackModule = await import("@paystack/inline-js");
 		PaystackPop = PaystackModule.default || PaystackModule;
-		// Image slideshow automation
-		console.log(data);
 	});
+
+	$effect(() => {
+		if (form?.success) {
+			isSnackbarVisible = true;
+		}
+	})
 
 	async function initPayment() {
 		let accessCode;
@@ -166,8 +108,8 @@
 </script>
 
 <svelte:head>
-	<title>{campaign.title} | Sorcemoola</title>
-	<meta name="description" content={campaign.description} />
+	<title>{data.campaign.name} | Sorcemoola</title>
+	<meta name="description" content={data.campaign.description} />
 </svelte:head>
 
 <main class="container">
@@ -203,7 +145,7 @@
 			<div class="tab-content">
 				{#if activeTab === "story"}
 					<section class="story-tab" transition:fade={{ duration: 200 }}>
-						<blockquote class="campaign-summary">{campaign.description}</blockquote>
+						<blockquote class="campaign-summary">{data.campaign.description}</blockquote>
 						<div class="campaign-story">
 							{#each data.campaign.story.split("\n") as paragraph}
 								{#if paragraph.trim() !== ""}
@@ -255,7 +197,10 @@
 			</div>
 
 			<div class="action_buttons">
-				<Button large={true} handler={() => (showDonationForm = true)}>Dontate Now</Button>
+				<form method="post" action="?/contribute" use:enhance>
+					<input type="hidden" name="amount" bind:value={pledgeAmount} />
+					<Button large={true} type="submit">Dontate Now</Button>
+				</form>
 				<Button primary={false} large={true}>Share</Button>
 			</div>
 
@@ -263,21 +208,21 @@
 				<div class="recent_donors">
 					<p class="title_text">{data.campaign.backersCount} people have contributed</p>
 					<ul class="donor_list">
-						{#each campaign.donors.slice(0, 3) as donor}
+						{#each data.campaign.recentContributions as donor}
 							<li class="donor_item">
 								<div class="donor_avatar">
 									{#if donor.avatar}
 										<img src={donor.avatar} alt={donor.name} />
 									{:else}
-										<div class="avatar_placeholder">{donor.name.charAt(0)}</div>
+										<div class="avatar_placeholder">{donor.User.name.charAt(0)}</div>
 									{/if}
 								</div>
 
 								<div class="donor_info">
-									<strong>{donor.name}</strong>
+									<strong>{donor.User.name}</strong>
 									<div class="donor_details">
-										<span class="amount">{formatCurrency(donor.amount)}</span>
-										<span class="time">{donor.timeAgo}</span>
+										<span class="amount">{formatCurrency(donor.amount / 100)}</span>
+										<span class="time">{donor.createdAt}</span>
 									</div>
 								</div>
 							</li>
@@ -296,11 +241,14 @@
 			</div>
 		</aside>
 	</div>
+
+	<Snackbar bind:visible={isSnackbarVisible} type="info">Donation successful. <span class="amount">₦{pledgeAmount}</span></Snackbar>
 </main>
 
 <style>
 	.campaign-header {
 		margin-bottom: var(--spacing-lg);
+		padding-bottom: 0;
 	}
 
 	:global(.splide__arrow) {
@@ -605,6 +553,10 @@
 		justify-content: center;
 		align-items: center;
 		gap: 8px;
+	}
+
+	.amount {
+		color: var(--secondary-color);
 	}
 
 	/* Responsive Design */

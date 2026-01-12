@@ -1,4 +1,5 @@
 <script>
+	import { stringToHSL } from '$lib/utils/color.js';
 	import { onMount } from 'svelte';
 
     let { data } = $props();
@@ -98,7 +99,13 @@
         {#each filteredCampaigns as campaign (campaign.id)}
             <article class="campaign-card">
                 <div class="card-image">
+                    {#if campaign.imageUrl}
                     <img src={campaign.image} alt={campaign.name} />
+                    {:else}
+                        <div class="campaign_image_placeholder" style:background-color={stringToHSL(campaign.name)}>
+                            <h3>{campaign.name}</h3>
+                        </div>
+                    {/if}
                     <span class="category-badge">{campaign.category}</span>
                 </div>
 
@@ -243,6 +250,20 @@
         height: 180px;
         position: relative;
     }
+
+    .campaign_image_placeholder {
+    width: 100%;
+    height: 100%;
+    /* aspect-ratio: 16 / 9; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    padding: 2rem;
+    text-align: center;
+  }
 
     .card-image img {
         width: 100%;

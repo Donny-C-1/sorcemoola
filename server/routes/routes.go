@@ -25,7 +25,7 @@ func SetupRoutes(router *gin.Engine) {
 		{
 			campaignGroup.POST("/", handlers.CreateCampaign)
 
-			campaignGroup.GET("/fund", handlers.FundCampaign)
+			campaignGroup.POST("/fund", handlers.FundCampaign)
 
 			campaignGroup.GET("/:slug", handlers.GetCampaign)
 		}
