@@ -34,5 +34,11 @@ func SetupRoutes(router *gin.Engine) {
 		{
 			userGroup.GET("/campaigns", handlers.GetUserCampaigns)
 		}
+
+		paymentGroup := v1.Group("/payments")
+		{
+			paymentGroup.POST("/paystack-webhook", handlers.PaystackWebhook)
+			paymentGroup.POST("/initialize", handlers.InitializePayment)
+		}
 	}
 }

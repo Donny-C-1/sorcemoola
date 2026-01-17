@@ -132,7 +132,7 @@
 
                     <div class="card-footer">
                         <div class="stat">
-                            <span class="stat-val">{campaign.donors}</span>
+                            <span class="stat-val">{campaign.backersCount}</span>
                             <span class="stat-lbl">Donors</span>
                         </div>
                         <div class="stat border-left">

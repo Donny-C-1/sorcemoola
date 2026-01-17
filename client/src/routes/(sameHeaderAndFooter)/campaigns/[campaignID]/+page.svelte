@@ -76,6 +76,7 @@
 	};
 
 	onMount(async () => {
+		$inspect(form);
 		const PaystackModule = await import("@paystack/inline-js");
 		PaystackPop = PaystackModule.default || PaystackModule;
 	});
@@ -84,7 +85,7 @@
 		if (form?.success) {
 			isSnackbarVisible = true;
 		}
-	})
+	});
 
 	async function initPayment() {
 		let accessCode;
@@ -197,7 +198,16 @@
 			</div>
 
 			<div class="action_buttons">
-				<form method="post" action="?/contribute" use:enhance>
+				<form
+					method="post"
+					action="?/initiatePayment"
+					use:enhance={() =>
+						async ({ result, update }) => {
+							const popup = new PaystackPop();
+							popup.resumeTransaction(result.data.access_code);
+							console.log(result);
+						}}
+				>
 					<input type="hidden" name="amount" bind:value={pledgeAmount} />
 					<Button large={true} type="submit">Dontate Now</Button>
 				</form>

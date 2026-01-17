@@ -28,6 +28,44 @@ export async function load({ params }) {
 }
 
 export const actions = {
+	initiatePayment: async ({ request, params, locals, fetch }) => {
+		if (!locals.user) {
+			return fail(401, { error: "You must be logged in to back a campaign" });
+		}
+
+		const formData = await request.formData();
+
+		const payload = {
+			amount: parseFloat(formData.get("amount")) * 100,
+			userID: locals.user.id,
+			campaignID: params.campaignID
+		};
+
+		if ((payload.amount | 0) <= 0 || payload.campaignID == false) {
+			return fail(422, {
+				error: "Invalid payment data",
+				...payload
+			});
+		}
+
+		try {
+			const response = await fetch(`${API_URL}/payments/initialize`, {
+				method: "post",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify(payload)
+			});
+
+			const result = await response.json();
+
+			if (!response.ok) return fail(400, { error: result.error || "Payment failed" });
+
+			return { access_code: result.data.access_code };
+		} catch (err) {
+			return fail(500, { error: err.message || "Server communication error" });
+		}
+	},
 	contribute: async ({ request, params, locals }) => {
 		const data = await request.formData();
 
