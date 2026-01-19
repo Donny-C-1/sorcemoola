@@ -126,16 +126,18 @@ func PaystackWebhook(c *gin.Context) {
 		return
 	}
 
+	log.Printf("Event Body: %v", event)
+
 	campaignUUID, err := uuid.Parse(event.Data.Metadata.CampaignID)
 	if err != nil {
-		log.Printf("Metadata Error: %v", err)
+		log.Printf("Metadata Error - CampaignID: %v", err)
 		c.Status(http.StatusBadRequest)
 		return
 	}
 
 	userUUID, err := uuid.Parse(event.Data.Metadata.UserID)
 	if err != nil {
-		log.Printf("Metadata Error: %v", err)
+		log.Printf("Metadata Error UserID: %v", err)
 		c.Status(http.StatusBadRequest)
 		return
 	}

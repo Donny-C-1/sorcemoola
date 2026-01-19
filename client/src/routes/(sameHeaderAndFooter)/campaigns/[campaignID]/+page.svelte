@@ -1,13 +1,19 @@
 <script>
 	import { onMount } from "svelte";
-	import { fade, fly } from "svelte/transition";
+	import { fade, fly, slide } from "svelte/transition";
 	import { PUBLIC_SERVER_URL } from "$env/static/public";
 	import { Splide, SplideSlide } from "@splidejs/svelte-splide";
 	import "@splidejs/svelte-splide/css";
 	import Button from "$lib/components/ui/Button.svelte";
 	import { enhance } from "$app/forms";
 	import Snackbar from "$lib/components/ui/Snackbar.svelte";
+	import { invalidateAll } from "$app/navigation";
 
+	const PRESET_AMOUNTS = [10000, 50000, 200000];
+	const STEP_AMOUNT = 100;
+	const MIN_AMOUNT = 100;
+	const MAX_AMOUNT = 1000000;
+	
 	let { data, form } = $props();
 
 	let PaystackPop;
@@ -61,22 +67,49 @@
 		autoplay: "true"
 	};
 
-	let pledgeAmount = $state(5000);
+	let pledgeAmount = $state(50000);
 	let customAmount = "";
 	let showDonationForm = $state(false);
 	let activeTab = $state("story");
 	let isSnackbarVisible = $state(false);
+	let isModalOpen = $state(false);
 
 	const formatCurrency = (amount) => {
-		return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(amount);
+		return new Intl.NumberFormat("en-NG", { style: "currency", currency: "NGN", maximumFractionDigits: 0 }).format(amount);
 	};
 
 	const getProgressPercentage = () => {
 		return Math.min(Math.floor((campaign.currentAmount / campaign.targetAmount) * 100), 100);
 	};
 
+	function toggleModal() {
+		isModalOpen = !isModalOpen;
+	}
+
+	function handleInputChange() {
+		if (pledgeAmount < MIN_AMOUNT) pledgeAmount = MIN_AMOUNT;
+		if (pledgeAmount > MAX_AMOUNT) pledgeAmount = MAX_AMOUNT;
+	}
+
+	async function handlePayment() {
+		return async ({ result, update }) => {
+			const popup = new PaystackPop();
+			popup.resumeTransaction(result.data.access_code, {
+				onSuccess: async(transaction) => {
+					console.log("Transaction", transaction);
+
+					setTimeout(async() => {
+						await invalidateAll();
+					}, 2000)
+				}
+			})
+
+			isModalOpen = false;
+		}
+	}
+
 	onMount(async () => {
-		$inspect(form);
+		$inspect(isModalOpen);
 		const PaystackModule = await import("@paystack/inline-js");
 		PaystackPop = PaystackModule.default || PaystackModule;
 	});
@@ -86,26 +119,6 @@
 			isSnackbarVisible = true;
 		}
 	});
-
-	async function initPayment() {
-		let accessCode;
-		try {
-			const response = await fetch(`${PUBLIC_SERVER_URL}/campaigns/fund`);
-
-			if (!response.ok) throw new Error("Server Error");
-
-			const data = await response.json();
-
-			accessCode = data.data.access_code;
-			console.log(data);
-		} catch (err) {
-			console.log(err);
-			return;
-		}
-
-		const popup = new PaystackPop();
-		popup.resumeTransaction(accessCode);
-	}
 </script>
 
 <svelte:head>
@@ -204,13 +217,21 @@
 					use:enhance={() =>
 						async ({ result, update }) => {
 							const popup = new PaystackPop();
-							popup.resumeTransaction(result.data.access_code);
+							popup.resumeTransaction(result.data.access_code, {
+								onSuccess: async (transaction) => {
+									console.log("Transaction", transaction);
+
+									setTimeout(async () => {
+										await invalidateAll();
+									}, 2000);
+								}
+							});
 							console.log(result);
 						}}
 				>
 					<input type="hidden" name="amount" bind:value={pledgeAmount} />
-					<Button large={true} type="submit">Dontate Now</Button>
 				</form>
+				<Button large={true} handler={toggleModal}>Dontate Now</Button>
 				<Button primary={false} large={true}>Share</Button>
 			</div>
 
@@ -253,6 +274,43 @@
 	</div>
 
 	<Snackbar bind:visible={isSnackbarVisible} type="info">Donation successful. <span class="amount">₦{pledgeAmount}</span></Snackbar>
+
+	{#if isModalOpen}
+		<div class="modal_backdrop" transition:fade>
+			<form method="post" action="?/initiatePayment" use:enhance={handlePayment} class="modal_container" in:slide>
+				<div class="modal_header">
+					<h2>Back this Project</h2>
+					<button class="close_btn" type="button" onclick={toggleModal}>&times;</button>
+				</div>
+
+				<div class="modal_body">
+					<p class="label">Select an amount</p>
+					<div class="preset_grid">
+						{#each PRESET_AMOUNTS as preset}
+							<button class="preset_btn" type="button" class:active={pledgeAmount === preset} onclick={_ => pledgeAmount = preset}>{formatCurrency(preset)}</button>
+						{/each}
+					</div>
+
+					<p class="label label_custom">Or enter custom amount</p>
+					<div class="input_wrapper">
+						<span class="currency_symbol">₦</span>
+						<input type="number" name="amount" class="amount_input" bind:value={pledgeAmount} step={STEP_AMOUNT} min={MIN_AMOUNT} max={MAX_AMOUNT} onchange={handleInputChange} />
+					</div>
+
+					<div class="slider_wrapper">
+						<input type="range" name="amount" id="range_amount" class="range_slider" bind:value={pledgeAmount} min={MIN_AMOUNT} max={MAX_AMOUNT} step={STEP_AMOUNT} style:--progres={(pledgeAmount / MAX_AMOUNT) * 100}%>
+						<div class="slider_labels">
+							<span>{formatCurrency(MIN_AMOUNT)}</span>
+							<span>{formatCurrency(MAX_AMOUNT)}</span>
+						</div>
+					</div>
+					<p class="min_text">Minimum donation is {formatCurrency(MIN_AMOUNT)}</p>
+
+					<Button wide={true} large={true} type="submit">Pay {formatCurrency(pledgeAmount)}</Button>
+				</div>
+			</form>
+		</div>
+	{/if}
 </main>
 
 <style>
@@ -567,6 +625,148 @@
 
 	.amount {
 		color: var(--secondary-color);
+	}
+
+	.modal_backdrop {
+		position: fixed;
+		inset: 0;
+		background-color: rgba(0, 0, 0, .5);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		z-index: 5;
+		backdrop-filter: blur(2px);
+	}
+
+	.modal_container {
+		background-color: var(--text-white);
+		border-radius: var(--radius-lg);
+		width: 90%;
+		max-width: 32rem;
+		box-shadow: 0 10px 15px -3px rgba(0, 0, 0, .1), 0 4px 6px -2px rgba(0, 0, 0, .05);
+		overflow: hidden;
+	}
+
+	.modal_header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 1.5rem;
+		border-bottom: 1px solid var(--neutral-color);
+	}
+
+	.modal_header h2 {
+		font-size: 1.5rem;
+		font-weight: 500;
+		margin: 0;
+	}
+
+	.close_btn {
+		background-color: transparent;
+		border: 0;
+		font-size: 2rem;
+		line-height: 1;
+		color: var(--neutral-color);
+	}
+
+	.modal_body {
+		padding: var(--spacing-md);
+	}
+
+	.label {
+		font-weight: 600;
+		margin-bottom: var(--spacing-sm);
+		display: block;
+	}
+
+	.label_custom {
+		margin-top: var(--spacing-md);
+	}
+
+	.preset_grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1rem;
+	}
+
+	.preset_btn {
+		padding: var(--spacing-smr);
+		border: 2px solid var(--neutral-color);
+		background-color: var(--text-white);
+		border-radius: var(--radius-md);
+		font-size: 1rem;
+		font-weight: 600;
+		transition: .2s ease;
+	}
+
+	.preset_btn:is(:hover, :focus-visible, :active) {
+		border-color: var(--primary-color);
+		color: var(--primary-color);
+	}
+
+	.preset_btn.active {
+		background-color: var(--primary-color);
+		border-color: var(--primary-color);
+		color: var(--text-white);
+	}
+
+	.input_wrapper {
+		position: relative;
+		display: flex;
+		align-items: center;
+		border: 2px solid var(--neutral-color);
+		border-radius: var(--radius-md);
+		padding: var(--spacing-smr);
+		margin-bottom: var(--spacing-md);
+		transition: border-color .2s;
+	}
+
+	.input_wrapper:focus-within {
+		border-color: var(--primary-color)
+	}
+
+	.currency_symbol {
+		font-size: 1.5rem;
+		font-weight: 600;
+		color: #6b7280;
+		margin-right: .5rem;
+	}
+
+	.amount_input {
+		border: none;
+		font-size: 1.5rem;
+		font-weight: 600;
+		width: 100%;
+		outline: none;
+	}
+
+	.slider_wrapper {
+		margin-bottom: var(--spacing-xs);
+	}
+
+	.range_slider {
+		width: 100%;
+		cursor: pointer;
+		accent-color: var(--primary-color);
+		height: 6px;
+		background-color: var(--neutral-color);
+		border-radius: var(--radius-sm);
+		outline: none;
+	}
+
+	.slider_labels {
+		display: flex;
+		justify-content: space-between;
+		font-size: .875rem;
+		color: var(--neutral-dark);
+		margin-top: .5rem;
+	}
+
+	.min_text {
+		font-size: .875rem;
+		text-align: center;
+		color: var(--neutral-dark);
+		margin-bottom: var(--spacing-md);
 	}
 
 	/* Responsive Design */
