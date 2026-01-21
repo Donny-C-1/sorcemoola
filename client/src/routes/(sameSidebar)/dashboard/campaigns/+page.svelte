@@ -59,8 +59,6 @@
     );
 
     const calculateProgress = (raised, goal) => Math.min((raised / goal) * 100, 100);
-
-    onMount(() => $inspect(data));
 </script>
 
 <div class="campaigns-page">
