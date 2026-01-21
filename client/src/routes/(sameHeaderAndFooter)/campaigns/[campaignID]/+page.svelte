@@ -8,44 +8,19 @@
 	import { enhance } from "$app/forms";
 	import Snackbar from "$lib/components/ui/Snackbar.svelte";
 	import { invalidateAll } from "$app/navigation";
+	import { formatCurrency } from "$lib/utils/formatters.js";
+	import { formatTimestamp } from "little-timestamp";
+
+	let { data, form } = $props();
 
 	const PRESET_AMOUNTS = [10000, 50000, 200000];
 	const STEP_AMOUNT = 100;
 	const MIN_AMOUNT = 100;
 	const MAX_AMOUNT = 1000000;
-	
-	let { data, form } = $props();
-
-	let PaystackPop;
 
 	let campaign = {
 		creatorAvatar: "https://images.unsplash.com/photo-1760574772950-f37de9dce85c?ixid=M3w4MjcwNjd8MHwxfHNlYXJjaHwzfHx3aXphcmQlMjB3aWxsb3d8ZW58MHx8fHwxNzYzNjYxNTA4fDA&ixlib=rb-4.1.0&fit=max&q=80",
 		daysLeft: 15,
-		donors: [
-			{
-				name: "John Doe",
-				amount: 150,
-				timeAgo: "2h ago",
-				avatar: "/images/avatar.png"
-			},
-			{
-				name: "Sarah Smith",
-				amount: 75,
-				timeAgo: "5h ago",
-				avatar: null
-			},
-			{
-				name: "Mike Johnson",
-				amount: 250,
-				timeAgo: "1d ago",
-				avatar: null
-			}
-		],
-		images: [
-			"https://images.unsplash.com/photo-1619982870053-1545857b7eb4?ixid=M3w4MjcwNjd8MHwxfHNlYXJjaHwzfHxlbmNoYW50ZWQlMjBmb3Jlc3R8ZW58MHx8fHwxNzYzNjYxMjc5fDA&ixlib=rb-4.1.0&fit=max&q=80",
-			"https://images.unsplash.com/photo-1597201423947-3e0028337902?ixid=M3w4MjcwNjd8MHwxfHNlYXJjaHw1fHxlbmNoYW50ZWQlMjBmb3Jlc3R8ZW58MHx8fHwxNzYzNjYxMjc5fDA&ixlib=rb-4.1.0&fit=max&q=80",
-			"https://images.unsplash.com/photo-1518562180175-34a163b1a9a6?ixid=M3w4MjcwNjd8MHwxfHNlYXJjaHwxMHx8ZW5jaGFudGVkJTIwZm9yZXN0fGVufDB8fHx8MTc2MzY2MTI3OXww&ixlib=rb-4.1.0&fit=max&q=80"
-		],
 		updates: [
 			{
 				date: "2023-10-25",
@@ -68,15 +43,9 @@
 	};
 
 	let pledgeAmount = $state(50000);
-	let customAmount = "";
-	let showDonationForm = $state(false);
 	let activeTab = $state("story");
 	let isSnackbarVisible = $state(false);
 	let isModalOpen = $state(false);
-
-	const formatCurrency = (amount) => {
-		return new Intl.NumberFormat("en-NG", { style: "currency", currency: "NGN", maximumFractionDigits: 0 }).format(amount);
-	};
 
 	const getProgressPercentage = () => {
 		return Math.min(Math.floor((campaign.currentAmount / campaign.targetAmount) * 100), 100);
@@ -93,6 +62,8 @@
 
 	async function handlePayment() {
 		return async ({ result, update }) => {
+			const { default: PaystackPop } = await import("@paystack/inline-js");
+
 			const popup = new PaystackPop();
 			popup.resumeTransaction(result.data.access_code, {
 				onSuccess: async(transaction) => {
@@ -107,12 +78,6 @@
 			isModalOpen = false;
 		}
 	}
-
-	onMount(async () => {
-		$inspect(isModalOpen);
-		const PaystackModule = await import("@paystack/inline-js");
-		PaystackPop = PaystackModule.default || PaystackModule;
-	});
 
 	$effect(() => {
 		if (form?.success) {
@@ -130,9 +95,12 @@
 	<section class="campaign-header">
 		<div class="image-gallery">
 			<Splide {options}>
-				{#each campaign.images as image, i}
+				{#each [{ mobile: "/images/share-mobile.png", desktop: "/images/share.png" }] as image, i}
 					<SplideSlide>
-						<img class="gallery_image" src={image} alt={`${campaign.title} - image ${i + 1}`} width="100%" height="auto" />
+						<picture>
+							<source media="(max-width: 650px)" srcset={image.mobile} />
+							<img class="gallery_image" src={image.desktop} alt={`${campaign.title} - image ${i + 1}`} width="100%" height="auto" />
+						</picture>
 					</SplideSlide>
 				{/each}
 			</Splide>
@@ -253,7 +221,7 @@
 									<strong>{donor.User.name}</strong>
 									<div class="donor_details">
 										<span class="amount">{formatCurrency(donor.amount / 100)}</span>
-										<span class="time">{donor.createdAt}</span>
+										<span class="time">{formatTimestamp(new Date(donor.createdAt))}</span>
 									</div>
 								</div>
 							</li>
@@ -343,14 +311,14 @@
 	.image-gallery {
 		border-radius: var(--radius-md);
 		overflow: hidden;
-		height: 25rem;
+		height: 27rem;
 		margin-bottom: var(--spacing-md);
 		box-shadow: var(--shadow-md);
 	}
 
 	.gallery_image {
 		width: 100%;
-		height: 25rem;
+		height: 27rem;
 		object-fit: cover;
 	}
 
