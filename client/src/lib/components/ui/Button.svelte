@@ -39,7 +39,6 @@
 		outline: none;
 		position: relative;
 		overflow: hidden;
-		z-index: 1;
 	}
 
 	button::after,

@@ -35,7 +35,11 @@ func Migrate() error {
 		return fmt.Errorf("database connection not established")
 	}
 
-	err := DB.AutoMigrate(&models.User{})
+	err := DB.AutoMigrate(
+		&models.User{},
+		&models.Campaign{},
+		&models.Contribution{},
+	)
 	if err != nil {
 		return fmt.Errorf("Failed to run migrations: %w", err)
 	}
