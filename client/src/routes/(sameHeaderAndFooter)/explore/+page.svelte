@@ -1,62 +1,54 @@
 <script>
-    import PlaceholderCampaigns from "$lib/components/PlaceholderCampaigns.svelte";
-    import ErrorComponent from "$lib/components/ErrorComponent.svelte";
+	import PlaceholderCampaigns from "$lib/components/PlaceholderCampaigns.svelte";
+	import ErrorComponent from "$lib/components/ErrorComponent.svelte";
 	import { onMount } from "svelte";
 
-    let searchQuery = $state("");
-    let activeCategory = $state("All Campaigns");
-    let loading = $state(true);
-    let error = $state(null);
-    let campaigns = $state([]);
+	let searchQuery = $state("");
+	let activeCategory = $state("All Campaigns");
+	let loading = $state(true);
+	let error = $state(null);
+	let campaigns = $state([]);
 
-    let categories = [
-        "All Campaigns",
-        "Technology",
-        "Creative",
-        "Business",
-        "Education",
-        "Community",
-        "Health"
-    ];
+	let categories = ["All Campaigns", "Technology", "Creative", "Business", "Education", "Community", "Health"];
 
-    let displayedCampaigns = $derived(campaigns.slice());
+	let displayedCampaigns = $derived(campaigns.slice());
 
-    onMount(() => {
-        fetchCampaigns();
-    })
+	onMount(() => {
+		fetchCampaigns();
+	});
 
-    function formatCurrency(amount) {
-		return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
+	function formatCurrency(amount) {
+		return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(amount);
 	}
 
-    function filterCampaigns() {
-        if (activeCategory === "All Campaigns" && !searchQuery) {
-            displayedCampaigns = [...campaigns];
-            return;
-        }
+	function filterCampaigns() {
+		if (activeCategory === "All Campaigns" && !searchQuery) {
+			displayedCampaigns = [...campaigns];
+			return;
+		}
 
-        displayedCampaigns = campaigns.filter(campaign => {
-            const matchesCategory = activeCategory === "All Campaigns" || campaign.category === activeCategory;
-            const matchesSearch = !searchQuery || campaign.title.toLowerCase().includes(searchQuery.toLowerCase()) || campaign.description.toLowerCase().includes(searchQuery.toLowerCase());
-            return matchesCategory && matchesSearch;
-        })
-    }
+		displayedCampaigns = campaigns.filter((campaign) => {
+			const matchesCategory = activeCategory === "All Campaigns" || campaign.category === activeCategory;
+			const matchesSearch = !searchQuery || campaign.title.toLowerCase().includes(searchQuery.toLowerCase()) || campaign.description.toLowerCase().includes(searchQuery.toLowerCase());
+			return matchesCategory && matchesSearch;
+		});
+	}
 
-    function handleSearch() {
-        filterCampaigns();
-    }
+	function handleSearch() {
+		filterCampaigns();
+	}
 
-    function selectCategory(category) {
-        activeCategory = category;
-        filterCampaigns();
-    }
+	function selectCategory(category) {
+		activeCategory = category;
+		filterCampaigns();
+	}
 
-    async function fetchCampaigns() {
+	async function fetchCampaigns() {
 		loading = true;
 		error = null;
 
 		try {
-			const response = await fetch('/mock/campaigns.json');
+			const response = await fetch("/mock/campaigns.json");
 
 			if (!response.ok) {
 				throw new Error(`HTTP error! status: ${response.status}`);
@@ -65,7 +57,7 @@
 			const data = await response.json();
 			campaigns = data;
 		} catch (err) {
-			error = 'Failed to load campaigns. Please try again.';
+			error = "Failed to load campaigns. Please try again.";
 		} finally {
 			loading = false;
 		}
@@ -73,12 +65,12 @@
 </script>
 
 <svelte:head>
-    <title>Explore Campaigns | SorceMoola</title>
-    <meta name="description" content="Explore the latest crowdfunding campaigns on SorceMoola. Discover innovative projects and support the creators you love."/>
+	<title>Explore Campaigns | SorceMoola</title>
+	<meta name="description" content="Explore the latest crowdfunding campaigns on SorceMoola. Discover innovative projects and support the creators you love." />
 </svelte:head>
 
 <main>
-    <section class="hero-section">
+	<section class="hero-section">
 		<div class="container">
 			<h1>Discover Amazing Campaigns</h1>
 			<p>Find innovative projects to back and help bring creative ideas to life</p>
@@ -86,20 +78,12 @@
 			<div class="search-container">
 				<div class="search-bar">
 					<i class="fas fa-search"></i>
-					<input
-						type="text"
-						placeholder="Search for campaigns..."
-						bind:value={searchQuery}
-						oninput={handleSearch}
-					/>
+					<input type="text" placeholder="Search for campaigns..." bind:value={searchQuery} oninput={handleSearch} />
 				</div>
 
 				<div class="categories">
 					{#each categories as category}
-						<button
-							class="category-btn {activeCategory === category ? 'active' : ''}"
-							onclick={() => selectCategory(category)}
-						>
+						<button class="category-btn {activeCategory === category ? 'active' : ''}" onclick={() => selectCategory(category)}>
 							{category}
 						</button>
 					{/each}
@@ -108,17 +92,12 @@
 		</div>
 	</section>
 
-    <section class="campaigns-section">
+	<section class="campaigns-section">
 		<div class="container">
 			{#if loading}
 				<PlaceholderCampaigns count={6} layout="grid" />
 			{:else if error}
-				<ErrorComponent
-					message="Couldn't load campaigns"
-					subtext="We're having trouble connecting to our servers. Please check your connection and try again."
-					icon="wifi-off"
-					retryFunction={fetchCampaigns}
-				/>
+				<ErrorComponent message="Couldn't load campaigns" subtext="We're having trouble connecting to our servers. Please check your connection and try again." icon="wifi-off" retryFunction={fetchCampaigns} />
 			{:else if displayedCampaigns.length > 0}
 				<div class="campaign-grid">
 					{#each displayedCampaigns as campaign (campaign.id)}
@@ -169,7 +148,7 @@
 </main>
 
 <style>
-    .hero-section {
+	.hero-section {
 		background-color: #f8f9fa;
 		padding: 3rem 0;
 		text-align: center;
@@ -250,7 +229,7 @@
 		border-color: #3cb983;
 	}
 
-    .campaigns-section {
+	.campaigns-section {
 		padding: 3rem 0;
 	}
 
@@ -413,7 +392,7 @@
 			grid-template-columns: repeat(2, 1fr);
 		}
 	}
-	
+
 	@media (max-width: 640px) {
 		.campaign-grid {
 			grid-template-columns: 1fr;

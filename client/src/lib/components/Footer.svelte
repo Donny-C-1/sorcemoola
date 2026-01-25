@@ -151,7 +151,7 @@
 		font-size: 0.9rem;
 	}
 
-    @media (max-width: 768px) {
+	@media (max-width: 768px) {
 		.footer-grid {
 			grid-template-columns: 1fr;
 			gap: 2rem;

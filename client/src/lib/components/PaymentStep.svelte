@@ -1,33 +1,31 @@
 <script>
-	import { writable } from 'svelte/store';
-	
+	import { writable } from "svelte/store";
+
 	// Props: formData (bindable) is used to save the selected Payout Profile ID or new details.
 	let { formData = $bindable({}) } = $props();
 
-
 	const existingProfiles = [
-		{ 
-			id: 'prof_8a7d3s4x', 
-			isVerified: true, 
-			legalName: 'Acme Corp, LLC', 
-			bankName: 'Fidelity Bank', 
-			accountMask: '****1234', 
-			currency: 'USD' 
-		},
+		{
+			id: "prof_8a7d3s4x",
+			isVerified: true,
+			legalName: "Acme Corp, LLC",
+			bankName: "Fidelity Bank",
+			accountMask: "****1234",
+			currency: "USD"
+		}
 	];
 
-	
-	let selectedOption = $state(existingProfiles.length > 0 ? 'existing' : 'new');
+	let selectedOption = $state(existingProfiles.length > 0 ? "existing" : "new");
 	let selectedProfileId = $state(existingProfiles.length > 0 ? existingProfiles[0].id : null);
 
 	// New profile state (for simulation purposes)
 	let newProfile = $state({
-		legalName: '',
-		taxId: '',
-		accountNumber: '',
-		routingNumber: '',
+		legalName: "",
+		taxId: "",
+		accountNumber: "",
+		routingNumber: ""
 	});
-	
+
 	// Initialize formData persistence
 	if (!formData.payment) {
 		formData.payment = {
@@ -36,12 +34,12 @@
 			newDetails: null
 		};
 	}
-	
+
 	// Effect to update formData when selection changes
 	$effect(() => {
 		formData.payment.selection = selectedOption;
-		
-		if (selectedOption === 'existing') {
+
+		if (selectedOption === "existing") {
 			formData.payment.profileId = selectedProfileId;
 			formData.payment.newDetails = null;
 		} else {
@@ -52,30 +50,29 @@
 	});
 
 	function handleSubmitNewProfile(e) {
-        e.preventDefault();
-		// In a real app: 
+		e.preventDefault();
+		// In a real app:
 		// 1. Call API to securely save banking/tax info.
 		// 2. Wait for verification status (usually takes minutes to hours).
 		// 3. If successful, set the new profile as the selected one.
-		
+
 		if (newProfile.legalName && newProfile.taxId && newProfile.accountNumber && newProfile.routingNumber) {
-			alert('New Payout Profile submitted for verification. Please continue.');
+			alert("New Payout Profile submitted for verification. Please continue.");
 			// Simulate adding the new profile to the existing list and selecting it
 			existingProfiles.push({
-				id: 'prof_' + Math.random().toString(36).substring(2, 10),
+				id: "prof_" + Math.random().toString(36).substring(2, 10),
 				isVerified: false,
 				legalName: newProfile.legalName,
-				bankName: 'New Draft Bank',
-				accountMask: '****' + newProfile.accountNumber.slice(-4),
-				currency: 'USD (Pending KYC)',
+				bankName: "New Draft Bank",
+				accountMask: "****" + newProfile.accountNumber.slice(-4),
+				currency: "USD (Pending KYC)"
 			});
 			selectedProfileId = existingProfiles[existingProfiles.length - 1].id;
-			selectedOption = 'existing';
+			selectedOption = "existing";
 		} else {
-			alert('Please fill out all required fields for the new profile.');
+			alert("Please fill out all required fields for the new profile.");
 		}
 	}
-
 </script>
 
 <div class="payment-container">
@@ -86,57 +83,42 @@
 
 	<!-- --- SELECTION TABS --- -->
 	<div class="selection-tabs">
-		
 		{#if existingProfiles.length > 0}
-			<button 
-				class="tab {selectedOption === 'existing' ? 'active' : ''}"
-				onclick={() => selectedOption = 'existing'}
-			>
+			<button class="tab {selectedOption === 'existing' ? 'active' : ''}" onclick={() => (selectedOption = "existing")}>
 				Use Existing Profile ({existingProfiles.length})
 			</button>
 		{/if}
-		
-		<button 
-			class="tab {selectedOption === 'new' ? 'active' : ''}"
-			onclick={() => selectedOption = 'new'}>
-			Set Up New Payout
-		</button>
+
+		<button class="tab {selectedOption === 'new' ? 'active' : ''}" onclick={() => (selectedOption = "new")}> Set Up New Payout </button>
 	</div>
 
 	<!-- --- CONTENT BASED ON SELECTION --- -->
 	<div class="content-panel">
-		
 		<!-- 1. EXISTING PROFILE SELECTION -->
-		{#if selectedOption === 'existing'}
+		{#if selectedOption === "existing"}
 			<div class="profile-selection">
 				<p class="section-title">Verified Payout Profiles</p>
 				<p class="helper-text-sm">Select the profile you wish to use for this campaign's funds.</p>
 
 				{#each existingProfiles as profile}
 					<label class="profile-card {selectedProfileId === profile.id ? 'selected' : ''}">
-						<input 
-							type="radio" 
-							name="payoutProfile" 
-							value={profile.id} 
-							bind:group={selectedProfileId}
-							checked={selectedProfileId === profile.id}
-						/>
+						<input type="radio" name="payoutProfile" value={profile.id} bind:group={selectedProfileId} checked={selectedProfileId === profile.id} />
 						<div class="profile-details">
 							<div class="status-badge {profile.isVerified ? 'verified' : 'pending'}">
 								<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-								<span>{profile.isVerified ? 'Verified' : 'Pending'}</span>
+								<span>{profile.isVerified ? "Verified" : "Pending"}</span>
 							</div>
-							
+
 							<div class="detail-row">
 								<p class="label">Legal Name:</p>
 								<p class="value">{profile.legalName}</p>
 							</div>
-							
+
 							<div class="detail-row">
 								<p class="label">Bank Account:</p>
 								<p class="value">{profile.bankName} ({profile.accountMask})</p>
 							</div>
-							
+
 							<div class="detail-row">
 								<p class="label">Currency:</p>
 								<p class="value">{profile.currency}</p>
@@ -144,39 +126,27 @@
 						</div>
 					</label>
 				{/each}
-				
+
 				<p class="footer-note">Need to update or add a new profile? Use the "Set Up New Payout" tab.</p>
 			</div>
 		{/if}
 
 		<!-- 2. NEW PROFILE SETUP -->
-		{#if selectedOption === 'new'}
+		{#if selectedOption === "new"}
 			<form onsubmit={handleSubmitNewProfile}>
 				<p class="section-title">Legal Entity & Tax Information</p>
 				<p class="helper-text-sm">This must match the owner of the bank account and the legal entity that will report the income.</p>
-				
+
 				<!-- Legal Name -->
 				<div class="form-group">
 					<label for="legalName">Full Legal Name / Business Name</label>
-					<input 
-						id="legalName" 
-						type="text" 
-						bind:value={newProfile.legalName}
-						placeholder="John D. Creator or Creator Labs Inc."
-						required
-					/>
+					<input id="legalName" type="text" bind:value={newProfile.legalName} placeholder="John D. Creator or Creator Labs Inc." required />
 				</div>
-				
+
 				<!-- Tax ID -->
 				<div class="form-group">
 					<label for="taxId">Tax ID (SSN / EIN)</label>
-					<input 
-						id="taxId" 
-						type="text" 
-						bind:value={newProfile.taxId}
-						placeholder="For tax reporting purposes (Required for verification)"
-						required
-					/>
+					<input id="taxId" type="text" bind:value={newProfile.taxId} placeholder="For tax reporting purposes (Required for verification)" required />
 				</div>
 
 				<p class="section-title mt-8">Payout Account Details</p>
@@ -186,27 +156,14 @@
 				<div class="grid-cols-2">
 					<div class="form-group">
 						<label for="routingNumber">Routing Number</label>
-						<input 
-							id="routingNumber" 
-							type="text" 
-							bind:value={newProfile.routingNumber}
-							placeholder="9 digits"
-							maxlength="9"
-							required
-						/>
+						<input id="routingNumber" type="text" bind:value={newProfile.routingNumber} placeholder="9 digits" maxlength="9" required />
 					</div>
 					<div class="form-group">
 						<label for="accountNumber">Account Number</label>
-						<input 
-							id="accountNumber" 
-							type="text" 
-							bind:value={newProfile.accountNumber}
-							placeholder="Your bank account number"
-							required
-						/>
+						<input id="accountNumber" type="text" bind:value={newProfile.accountNumber} placeholder="Your bank account number" required />
 					</div>
 				</div>
-				
+
 				<div class="form-actions-bottom">
 					<button type="submit" class="btn-save-payout">
 						<svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M10 20H4a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2h12l5 5v3"></path><path d="M16 12L12 16L16 20M12 16H22"></path></svg>
@@ -240,7 +197,7 @@
 		width: 100%;
 		max-width: 800px;
 		margin: 0 auto;
-		font-family: 'Inter', sans-serif;
+		font-family: "Inter", sans-serif;
 	}
 
 	.header {
@@ -260,7 +217,7 @@
 		margin: 0;
 		line-height: 1.5;
 	}
-	
+
 	.helper-text-sm {
 		font-size: 0.875rem;
 		color: var(--text-gray);
@@ -275,7 +232,7 @@
 		padding-bottom: 0.5rem;
 		border-bottom: 1px solid var(--border);
 	}
-	
+
 	.mt-8 {
 		margin-top: 2rem !important;
 	}
@@ -303,7 +260,7 @@
 		color: var(--primary);
 		border-bottom: 3px solid var(--primary);
 	}
-	
+
 	.tab:not(.active):hover {
 		color: var(--text-dark);
 	}
@@ -338,7 +295,7 @@
 		border-color: var(--primary);
 		background: var(--primary-light);
 	}
-	
+
 	.profile-card input[type="radio"] {
 		margin-top: 0.25rem;
 		appearance: none;
@@ -346,10 +303,12 @@
 		height: 1.25rem;
 		border: 2px solid var(--text-gray);
 		border-radius: 50%;
-		transition: border-color 0.2s, background-color 0.2s;
+		transition:
+			border-color 0.2s,
+			background-color 0.2s;
 		flex-shrink: 0;
 	}
-	
+
 	.profile-card input[type="radio"]:checked {
 		border-color: var(--primary);
 		background: var(--primary);
@@ -359,7 +318,7 @@
 	.profile-details {
 		flex-grow: 1;
 	}
-	
+
 	.detail-row {
 		display: flex;
 		justify-content: space-between;
@@ -372,12 +331,12 @@
 		color: var(--text-dark);
 		margin: 0;
 	}
-	
+
 	.detail-row .value {
 		color: var(--text-gray);
 		margin: 0;
 	}
-	
+
 	.status-badge {
 		display: inline-flex;
 		align-items: center;
@@ -388,17 +347,17 @@
 		font-weight: 600;
 		margin-bottom: 0.75rem;
 	}
-	
+
 	.status-badge.verified {
 		background: #d1fae5; /* Green 100 */
 		color: var(--verified);
 	}
-	
+
 	.status-badge.pending {
 		background: #fef9c3; /* Amber 100 */
 		color: var(--pending);
 	}
-	
+
 	.status-badge svg {
 		stroke-width: 2.5;
 	}
@@ -409,7 +368,7 @@
 		color: var(--text-light);
 		margin-top: 1rem;
 	}
-	
+
 	/* --- NEW PROFILE FORM --- */
 	.form-group {
 		display: flex;
@@ -424,7 +383,8 @@
 		color: var(--text-dark);
 	}
 
-	input[type="text"], input[type="number"] {
+	input[type="text"],
+	input[type="number"] {
 		width: 100%;
 		padding: 0.75rem 1rem;
 		border: 1px solid var(--border);
@@ -433,20 +393,22 @@
 		font-family: inherit;
 		color: var(--text-dark);
 		outline: none;
-		transition: border 0.2s, box-shadow 0.2s;
+		transition:
+			border 0.2s,
+			box-shadow 0.2s;
 	}
 
 	input:focus {
 		border-color: var(--primary);
 		box-shadow: 0 0 0 3px rgba(52, 162, 115, 0.2);
 	}
-	
+
 	.grid-cols-2 {
 		display: grid;
 		grid-template-columns: 1fr;
 		gap: 1.5rem;
 	}
-	
+
 	@media (min-width: 640px) {
 		.grid-cols-2 {
 			grid-template-columns: repeat(2, 1fr);
@@ -476,9 +438,8 @@
 		background: var(--primary);
 		color: var(--bg-white);
 	}
-	
+
 	.btn-save-payout:hover {
 		background: var(--primary-hover);
 	}
-	
 </style>

@@ -1,17 +1,17 @@
 <!-- src/components/FeaturedProjects.svelte -->
 <script>
-	import { onMount } from 'svelte';
-	import Button from './ui/Button.svelte';
-	import ProjectCard from './ui/ProjectCard.svelte';
-	import { featuredProjects } from '$lib/data/featured-projects';
-	import { Splide, SplideSlide } from '@splidejs/svelte-splide';
-	import '@splidejs/svelte-splide/css';
+	import { onMount } from "svelte";
+	import Button from "./ui/Button.svelte";
+	import ProjectCard from "./ui/ProjectCard.svelte";
+	import { featuredProjects } from "$lib/data/featured-projects";
+	import { Splide, SplideSlide } from "@splidejs/svelte-splide";
+	import "@splidejs/svelte-splide/css";
 
 	let options = {
 		perPage: 3,
 		perMove: 1,
-		type: 'loop',
-		gap: '1rem',
+		type: "loop",
+		gap: "1rem",
 		pagination: false,
 		breakpoints: {
 			992: {
@@ -19,21 +19,18 @@
 			},
 			680: {
 				perPage: 1,
-				padding: '10%',
+				padding: "10%",
 				arrows: false
 			}
 		}
 	};
-
 </script>
 
 <section id="featured-projects" class="featured-projects">
 	<div class="container">
 		<div class="section-title animate-on-scroll">
 			<h2>Featured Campaigns</h2>
-			<p>
-				Find and fund critical needs and community dreams from verified individuals, turning collective action into real, life-changing support.
-			</p>
+			<p>Find and fund critical needs and community dreams from verified individuals, turning collective action into real, life-changing support.</p>
 		</div>
 
 		<div class="carousel-container animate-on-scroll">

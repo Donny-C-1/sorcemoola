@@ -106,10 +106,7 @@
 			<div class="campaign-card">
 				<p class="title">{campaign.title}</p>
 				<div class="progress-bar">
-					<div
-						class="progress"
-						style="width: {Math.min((campaign.fundsRaised / campaign.target) * 100, 100)}%"
-					></div>
+					<div class="progress" style="width: {Math.min((campaign.fundsRaised / campaign.target) * 100, 100)}%"></div>
 				</div>
 				<p class="progress-text">
 					₦{campaign.fundsRaised.toLocaleString()} raised of ₦{campaign.target.toLocaleString()}

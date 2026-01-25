@@ -85,7 +85,7 @@
 		display: flex;
 		justify-content: center;
 		font-family: Poppins;
-    background-color: var(--primary-bg);
+		background-color: var(--primary-bg);
 	}
 
 	form {
@@ -94,7 +94,7 @@
 		max-width: 42rem;
 		padding: var(--spacing-xl) var(--spacing-sm);
 		border-radius: var(--radius-lg);
-    background-color: var(--text-white);
+		background-color: var(--text-white);
 
 		@media screen and (min-width: 45rem) {
 			padding: var(--spacing-xl);

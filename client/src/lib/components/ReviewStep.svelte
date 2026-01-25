@@ -1,12 +1,14 @@
 <script>
-	import { currencyFormat } from '$lib/utils'; // Placeholder for a utility function
-	
+	import { currencyFormat } from "$lib/utils"; // Placeholder for a utility function
+
 	// Props: formData (read-only in this step)
-	let { formData = {
+	let {
+		formData = {
 			basics: { title: "", category: "", duration: "" },
 			funding: { goal: 0, currency: "naira", perkCount: 0 },
 			payment: { selection: "", profileId: ",", newDetails: "" }
-		} } = $props();
+		}
+	} = $props();
 
 	let termsAccepted = $state(false);
 
@@ -19,34 +21,34 @@
 
 	function launchCampaign() {
 		if (termsAccepted) {
-			console.log('Campaign Data:', JSON.stringify(formData, null, 2));
-			alert('Congratulations! Your campaign is now launched (simulated submission).');
+			console.log("Campaign Data:", JSON.stringify(formData, null, 2));
+			alert("Congratulations! Your campaign is now launched (simulated submission).");
 			// In a real app: call API to submit formData and redirect to campaign dashboard
 		} else {
-			alert('You must accept the terms and conditions to launch your campaign.');
+			alert("You must accept the terms and conditions to launch your campaign.");
 		}
 	}
 
 	// --- Simulated Payout Data based on previous step's selection ---
 	// In a real application, you would fetch the full profile details using the profileId.
 	const getPayoutDetails = () => {
-		if (formData.payment.selection === 'existing') {
+		if (formData.payment.selection === "existing") {
 			return {
-				status: 'Verified',
-				legalName: 'Acme Corp, LLC',
-				bankInfo: 'Fidelity Bank (****1234)',
-				notes: 'Using existing, verified profile.'
+				status: "Verified",
+				legalName: "Acme Corp, LLC",
+				bankInfo: "Fidelity Bank (****1234)",
+				notes: "Using existing, verified profile."
 			};
-		} else if (formData.payment.selection === 'new' && formData.payment.newDetails) {
+		} else if (formData.payment.selection === "new" && formData.payment.newDetails) {
 			const details = formData.payment.newDetails;
 			return {
-				status: 'Pending Verification',
-				legalName: details.legalName || 'N/A',
-				bankInfo: `Account ending in ****${details.accountNumber?.slice(-4) || 'XXXX'}`,
-				notes: 'New account details submitted for KYC and banking verification. Funds will be held until verification is complete.'
+				status: "Pending Verification",
+				legalName: details.legalName || "N/A",
+				bankInfo: `Account ending in ****${details.accountNumber?.slice(-4) || "XXXX"}`,
+				notes: "New account details submitted for KYC and banking verification. Funds will be held until verification is complete."
 			};
 		}
-		return { status: 'Missing', legalName: 'N/A', bankInfo: 'N/A', notes: 'No payout profile selected.' };
+		return { status: "Missing", legalName: "N/A", bankInfo: "N/A", notes: "No payout profile selected." };
 	};
 
 	const payoutDetails = getPayoutDetails();
@@ -59,12 +61,11 @@
 	</header>
 
 	<div class="review-grid">
-		
 		<!-- 1. Basics Summary -->
 		<section class="card summary-card">
 			<div class="card-header">
 				<h2 class="card-title">1. Basic Information</h2>
-				<button class="edit-btn" onclick={() => editStep('Basics')}>Edit</button>
+				<button class="edit-btn" onclick={() => editStep("Basics")}>Edit</button>
 			</div>
 			<div class="card-body">
 				<div class="detail-item">
@@ -86,13 +87,13 @@
 		<section class="card summary-card">
 			<div class="card-header">
 				<h2 class="card-title">2. Funding Goal & Perks</h2>
-				<button class="edit-btn" onclick={() => editStep('Funding')}>Edit</button>
+				<button class="edit-btn" onclick={() => editStep("Funding")}>Edit</button>
 			</div>
 			<div class="card-body">
 				<div class="detail-item">
 					<span class="label">Funding Goal:</span>
 					<!-- Using a simulated utility for formatting -->
-					<span class="value large-value">{formData.funding.currency} {new Intl.NumberFormat('en-US').format(formData.funding.goal)}</span>
+					<span class="value large-value">{formData.funding.currency} {new Intl.NumberFormat("en-US").format(formData.funding.goal)}</span>
 				</div>
 				<div class="detail-item">
 					<span class="label">Perks/Rewards Offered:</span>
@@ -104,12 +105,12 @@
 				</div>
 			</div>
 		</section>
-		
+
 		<!-- 3. Payment/Payout Summary -->
 		<section class="card full-width summary-card payout-card">
 			<div class="card-header">
 				<h2 class="card-title">3. Payout Profile (Fund Disbursement)</h2>
-				<button class="edit-btn" onclick={() => editStep('Payment')}>Edit</button>
+				<button class="edit-btn" onclick={() => editStep("Payment")}>Edit</button>
 			</div>
 			<div class="card-body">
 				<div class="payout-details">
@@ -127,7 +128,8 @@
 					</div>
 				</div>
 				<p class="payout-notes">
-					<strong>Note:</strong> {payoutDetails.notes}
+					<strong>Note:</strong>
+					{payoutDetails.notes}
 				</p>
 			</div>
 		</section>
@@ -140,15 +142,11 @@
 			I certify that all the information provided above is true and accurate. I have read and agree to the platform's <a href="#" target="_blank">Terms & Conditions</a> and <a href="#" target="_blank">Service Fees</a>.
 		</label>
 
-		<button 
-			class="launch-btn"
-			disabled={!termsAccepted}
-			onclick={launchCampaign}
-		>
+		<button class="launch-btn" disabled={!termsAccepted} onclick={launchCampaign}>
 			<svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"></path><path d="M22 2L15 22L11 13L2 9L22 2"></path></svg>
 			Launch Campaign
 		</button>
-		
+
 		{#if !termsAccepted}
 			<p class="disclaimer">You must agree to the terms to launch.</p>
 		{/if}
@@ -166,7 +164,7 @@
 		--border-light: #e5e7eb;
 		--shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
 		--radius: 12px;
-		font-family: 'Inter', sans-serif;
+		font-family: "Inter", sans-serif;
 		max-width: 1000px;
 		margin: 0 auto;
 		padding: 2rem 1rem;
@@ -216,7 +214,7 @@
 		box-shadow: var(--shadow-md);
 		transition: transform 0.2s;
 	}
-	
+
 	.card:hover {
 		transform: translateY(-2px);
 	}
@@ -271,7 +269,7 @@
 		padding: 0.5rem 0;
 		border-bottom: 1px dotted #f3f4f6;
 	}
-	
+
 	.detail-item:last-child {
 		border-bottom: none;
 	}
@@ -288,7 +286,7 @@
 		text-align: right;
 		font-weight: 500;
 	}
-	
+
 	.large-value {
 		font-size: 1.1rem;
 		font-weight: 700;
@@ -299,42 +297,42 @@
 	.payout-card .card-body {
 		gap: 0.5rem;
 	}
-	
+
 	.payout-details {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 		gap: 1rem;
 	}
-	
+
 	@media (max-width: 600px) {
 		.payout-details {
 			grid-template-columns: 1fr;
 		}
 	}
-	
+
 	.payout-details .detail-item {
 		flex-direction: column;
 		align-items: flex-start;
 		border: none;
 		padding: 0;
 	}
-	
+
 	.payout-details .label {
 		font-size: 0.9rem;
 		color: var(--text-gray);
 	}
-	
+
 	.payout-details .value {
 		font-size: 1rem;
 		font-weight: 700;
 		text-align: left;
 		color: var(--text-dark);
 	}
-	
+
 	.status-verified {
 		color: #10b981; /* Green */
 	}
-	
+
 	.status-pending-verification {
 		color: #f59e0b; /* Amber */
 	}
@@ -347,7 +345,7 @@
 		padding: 1rem;
 		margin-top: 1rem;
 	}
-	
+
 	.payout-notes strong {
 		color: var(--text-dark);
 	}
@@ -372,7 +370,7 @@
 		text-align: left;
 		cursor: pointer;
 	}
-	
+
 	.agreement-checkbox input[type="checkbox"] {
 		margin-top: 0.2rem;
 		margin-right: 1rem;
@@ -381,13 +379,13 @@
 		accent-color: var(--primary-color);
 		flex-shrink: 0;
 	}
-	
+
 	.agreement-checkbox a {
 		color: var(--primary-color);
 		text-decoration: none;
 		font-weight: 600;
 	}
-	
+
 	.agreement-checkbox a:hover {
 		text-decoration: underline;
 	}
@@ -404,7 +402,9 @@
 		border: none;
 		border-radius: var(--radius);
 		cursor: pointer;
-		transition: background-color 0.2s, transform 0.1s;
+		transition:
+			background-color 0.2s,
+			transform 0.1s;
 		box-shadow: 0 4px 10px rgba(52, 162, 115, 0.4);
 	}
 
@@ -418,7 +418,7 @@
 		cursor: not-allowed;
 		box-shadow: none;
 	}
-	
+
 	.disclaimer {
 		margin-top: 1rem;
 		font-size: 0.9rem;

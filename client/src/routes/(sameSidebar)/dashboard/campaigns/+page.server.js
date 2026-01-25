@@ -10,6 +10,8 @@ export async function load({ locals }) {
 			body = null;
 		}
 
+		console.log("Fetched campaigns:", body.campaigns);
+
 		return { campaigns: body.campaigns };
 	} catch (err) {
 		console.log(err);

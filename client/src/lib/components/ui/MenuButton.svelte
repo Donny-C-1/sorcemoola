@@ -9,30 +9,30 @@
 </button>
 
 <style>
-    button {
-        display: none;
-        flex-direction: column;
-        gap: 5px;
-        border: 0;
-        z-index: 10000;
-        padding: .5rem;
-        cursor: pointer;
-    }
+	button {
+		display: none;
+		flex-direction: column;
+		gap: 5px;
+		border: 0;
+		z-index: 10000;
+		padding: 0.5rem;
+		cursor: pointer;
+	}
 
-    button.visible {
-        display: flex;
-    }
+	button.visible {
+		display: flex;
+	}
 
-    button span {
-        display: block;
-        width: 25px;
-        height: 3px;
-        background-color: var(--text-dark);
-        border-radius: 3px;
-        transition: .3s ease-in-out;
-    }
+	button span {
+		display: block;
+		width: 25px;
+		height: 3px;
+		background-color: var(--text-dark);
+		border-radius: 3px;
+		transition: 0.3s ease-in-out;
+	}
 
-    button .first {
+	button .first {
 		transform: translateY(8px) rotate(45deg);
 	}
 
@@ -43,5 +43,4 @@
 	button .last {
 		transform: translateY(-8px) rotate(-45deg);
 	}
-
 </style>

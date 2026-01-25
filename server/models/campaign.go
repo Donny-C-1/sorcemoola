@@ -10,6 +10,8 @@ type Campaign struct {
 	Name         string    `json:"name" gorm:"not null"`
 	Description  string    `json:"description"`
 	Story        string    `json:"story" gorm:"not null"`
+	Category     string    `json:"category" gorm:"not null;default:'Other'"`
+	ImageURL     string    `json:"imageUrl"`
 	Slug         string    `json:"slug" gorm:"not null;uniquIndex"`
 	FundGoal     int64     `json:"fundGoal" gorm:"not null"`
 	AmountRaised int64     `json:"amountRaised" gorm:"default:0"`

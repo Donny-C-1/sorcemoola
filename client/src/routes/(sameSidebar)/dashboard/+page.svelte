@@ -1,22 +1,22 @@
 <script>
 	// Mock Data - In a real app, these would be props or fetched from your Go backend
 	let stats = $state({
-		totalRaised: 45280.50,
+		totalRaised: 45280.5,
 		activeCampaigns: 4,
 		totalDonors: 892,
 		livesImpacted: 1240,
-		availableBalance: 12450.00,
-		kycStatus: 'verified' // 'pending', 'verified', 'action_required'
+		availableBalance: 12450.0,
+		kycStatus: "verified" // 'pending', 'verified', 'action_required'
 	});
 
 	let recentDonations = $state([
 		{ id: 1, donor: "Sarah J.", amount: 500, campaign: "Flood Relief", time: "2m ago" },
 		{ id: 2, donor: "Anonymous", amount: 1200, campaign: "Medical Supplies", time: "1h ago" },
 		{ id: 3, donor: "TechCorp Ltd", amount: 5000, campaign: "Education Fund", time: "3h ago" },
-		{ id: 4, donor: "Michael O.", amount: 50, campaign: "Flood Relief", time: "5h ago" },
+		{ id: 4, donor: "Michael O.", amount: 50, campaign: "Flood Relief", time: "5h ago" }
 	]);
 
-	const formatCurrency = (val) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(val);
+	const formatCurrency = (val) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(val);
 </script>
 
 <div class="overview-container">
@@ -82,7 +82,7 @@
 				<div class="kyc-icon">!</div>
 				<div>
 					<h4>Compliance Status</h4>
-					<p>{stats.kycStatus === 'verified' ? 'Account fully verified' : 'Action Required'}</p>
+					<p>{stats.kycStatus === "verified" ? "Account fully verified" : "Action Required"}</p>
 				</div>
 			</div>
 		</aside>
@@ -148,7 +148,7 @@
 		border-radius: var(--radius-lg);
 		padding: var(--spacing-md);
 		box-shadow: var(--shadow-sm);
-		border: 1px solid rgba(0,0,0,0.05);
+		border: 1px solid rgba(0, 0, 0, 0.05);
 	}
 
 	/* Stats Grid */
@@ -171,8 +171,12 @@
 		margin-bottom: var(--spacing-xs);
 	}
 
-	.text-primary { color: var(--primary-color); }
-	.text-accent { color: var(--accent-color); }
+	.text-primary {
+		color: var(--primary-color);
+	}
+	.text-accent {
+		color: var(--accent-color);
+	}
 
 	.trend {
 		font-size: 0.75rem;
@@ -308,9 +312,15 @@
 		cursor: pointer;
 	}
 
-	.w-full { width: 100%; }
-	.font-bold { font-weight: 700; }
-	.text-light { color: var(--text-light); }
+	.w-full {
+		width: 100%;
+	}
+	.font-bold {
+		font-weight: 700;
+	}
+	.text-light {
+		color: var(--text-light);
+	}
 
 	@media (max-width: 768px) {
 		.main-content-split {

@@ -66,17 +66,17 @@
 
 			const popup = new PaystackPop();
 			popup.resumeTransaction(result.data.access_code, {
-				onSuccess: async(transaction) => {
+				onSuccess: async (transaction) => {
 					console.log("Transaction", transaction);
 
-					setTimeout(async() => {
+					setTimeout(async () => {
 						await invalidateAll();
-					}, 2000)
+					}, 2000);
 				}
-			})
+			});
 
 			isModalOpen = false;
-		}
+		};
 	}
 
 	$effect(() => {
@@ -255,7 +255,7 @@
 					<p class="label">Select an amount</p>
 					<div class="preset_grid">
 						{#each PRESET_AMOUNTS as preset}
-							<button class="preset_btn" type="button" class:active={pledgeAmount === preset} onclick={_ => pledgeAmount = preset}>{formatCurrency(preset)}</button>
+							<button class="preset_btn" type="button" class:active={pledgeAmount === preset} onclick={(_) => (pledgeAmount = preset)}>{formatCurrency(preset)}</button>
 						{/each}
 					</div>
 
@@ -266,7 +266,7 @@
 					</div>
 
 					<div class="slider_wrapper">
-						<input type="range" name="amount" id="range_amount" class="range_slider" bind:value={pledgeAmount} min={MIN_AMOUNT} max={MAX_AMOUNT} step={STEP_AMOUNT} style:--progres={(pledgeAmount / MAX_AMOUNT) * 100}%>
+						<input type="range" name="amount" id="range_amount" class="range_slider" bind:value={pledgeAmount} min={MIN_AMOUNT} max={MAX_AMOUNT} step={STEP_AMOUNT} style:--progres="{(pledgeAmount / MAX_AMOUNT) * 100}%" />
 						<div class="slider_labels">
 							<span>{formatCurrency(MIN_AMOUNT)}</span>
 							<span>{formatCurrency(MAX_AMOUNT)}</span>
@@ -598,7 +598,7 @@
 	.modal_backdrop {
 		position: fixed;
 		inset: 0;
-		background-color: rgba(0, 0, 0, .5);
+		background-color: rgba(0, 0, 0, 0.5);
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -611,7 +611,9 @@
 		border-radius: var(--radius-lg);
 		width: 90%;
 		max-width: 32rem;
-		box-shadow: 0 10px 15px -3px rgba(0, 0, 0, .1), 0 4px 6px -2px rgba(0, 0, 0, .05);
+		box-shadow:
+			0 10px 15px -3px rgba(0, 0, 0, 0.1),
+			0 4px 6px -2px rgba(0, 0, 0, 0.05);
 		overflow: hidden;
 	}
 
@@ -664,7 +666,7 @@
 		border-radius: var(--radius-md);
 		font-size: 1rem;
 		font-weight: 600;
-		transition: .2s ease;
+		transition: 0.2s ease;
 	}
 
 	.preset_btn:is(:hover, :focus-visible, :active) {
@@ -686,18 +688,18 @@
 		border-radius: var(--radius-md);
 		padding: var(--spacing-smr);
 		margin-bottom: var(--spacing-md);
-		transition: border-color .2s;
+		transition: border-color 0.2s;
 	}
 
 	.input_wrapper:focus-within {
-		border-color: var(--primary-color)
+		border-color: var(--primary-color);
 	}
 
 	.currency_symbol {
 		font-size: 1.5rem;
 		font-weight: 600;
 		color: #6b7280;
-		margin-right: .5rem;
+		margin-right: 0.5rem;
 	}
 
 	.amount_input {
@@ -725,13 +727,13 @@
 	.slider_labels {
 		display: flex;
 		justify-content: space-between;
-		font-size: .875rem;
+		font-size: 0.875rem;
 		color: var(--neutral-dark);
-		margin-top: .5rem;
+		margin-top: 0.5rem;
 	}
 
 	.min_text {
-		font-size: .875rem;
+		font-size: 0.875rem;
 		text-align: center;
 		color: var(--neutral-dark);
 		margin-bottom: var(--spacing-md);

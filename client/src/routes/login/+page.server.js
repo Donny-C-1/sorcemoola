@@ -4,6 +4,8 @@ import { API_URL } from "$env/static/private";
 
 import { AUTH_COOKIE_NAME } from "$lib/config/constants.js";
 
+const isDefined = API_URL ? API_URL : "http://localhost:8080/api/v1";
+
 export const actions = {
 	login: async ({ request, cookies }) => {
 		const data = await request.formData();
@@ -15,7 +17,15 @@ export const actions = {
 		let user, token;
 
 		try {
-			const response = await fetch(`${API_URL}/auth/login`, {
+			// const response = await fetch(`${API_URL}/auth/login`, {
+			// 	method: "POST",
+			// 	body: JSON.stringify(payload),
+			// 	headers: {
+			// 		"Content-Type": "application/json"
+			// 	}
+			// });
+			console.log("this is API_URL", API_URL);
+			const response = await fetch(`${isDefined}/auth/login`, {
 				method: "POST",
 				body: JSON.stringify(payload),
 				headers: {

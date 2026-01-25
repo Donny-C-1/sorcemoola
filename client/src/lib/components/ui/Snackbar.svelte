@@ -2,15 +2,15 @@
 	import { fade, fly } from "svelte/transition";
 
 	let { children, visible = $bindable(false), type = "info", duration = 3000 } = $props();
-    let timeout;
+	let timeout;
 
-    $effect(() => {
-        if (visible) {
-            clearTimeout(timeout);
-            timeout = setTimeout(() => visible = false, duration);
-        }
-        return () => clearTimeout(timeout);
-    })
+	$effect(() => {
+		if (visible) {
+			clearTimeout(timeout);
+			timeout = setTimeout(() => (visible = false), duration);
+		}
+		return () => clearTimeout(timeout);
+	});
 </script>
 
 {#if visible}
@@ -30,14 +30,14 @@
 		padding: var(--spacing-sm);
 		background-color: var(--text-dark);
 		color: var(--text-white);
-        box-shadow: var(--shadow-md);
+		box-shadow: var(--shadow-md);
 	}
 
-    .info {
-        background-color: var(--primary-color);
-    }
+	.info {
+		background-color: var(--primary-color);
+	}
 
-    .error {
-        background-color: var(--error-color);
-    }
+	.error {
+		background-color: var(--error-color);
+	}
 </style>

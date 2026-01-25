@@ -2,23 +2,19 @@
 	const pillars = $state([
 		{
 			title: "Our Mission",
-			detail:
-				"To empower Nigerians by providing the most secure and transparent crowdfunding platform dedicated to facilitating immediate critical aid and fostering sustainable personal advancement."
+			detail: "To empower Nigerians by providing the most secure and transparent crowdfunding platform dedicated to facilitating immediate critical aid and fostering sustainable personal advancement."
 		},
 		{
 			title: "Our Vision",
-			detail:
-				"To fundamentally redefine the Nigerian social safety net, creating a future where every urgent need is met by the swift, collective power of the community, driven by integrity and trust."
+			detail: "To fundamentally redefine the Nigerian social safety net, creating a future where every urgent need is met by the swift, collective power of the community, driven by integrity and trust."
 		},
 		{
 			title: "Our Core Values",
-			detail:
-				"We operate on three non-negotiable pillars: Trust First (100% campaign verification), Rapid Impact (swift fund disbursement), and Communal Ownership (a platform built by and for Nigerians)."
+			detail: "We operate on three non-negotiable pillars: Trust First (100% campaign verification), Rapid Impact (swift fund disbursement), and Communal Ownership (a platform built by and for Nigerians)."
 		},
 		{
 			title: "Our Community",
-			detail:
-				"SorceMoola is a movement of millions of Nigerians at home and abroad, uniting to ensure that local challenges are met with global generosity, fostering resilience one successful campaign at a time."
+			detail: "SorceMoola is a movement of millions of Nigerians at home and abroad, uniting to ensure that local challenges are met with global generosity, fostering resilience one successful campaign at a time."
 		}
 	]);
 
@@ -27,8 +23,7 @@
 		{
 			name: "Ayo Adekunle",
 			title: "Founder & CEO",
-			motivation:
-				"Pioneering transparent giving and fighting financial vulnerability across Nigeria.",
+			motivation: "Pioneering transparent giving and fighting financial vulnerability across Nigeria.",
 			image: "https://i.pravatar.cc/300?img=70"
 		},
 		{
@@ -51,13 +46,11 @@
 		}
 	]);
 
-	const groupImage =
-		"https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"; // Team collaboration photo
+	const groupImage = "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"; // Team collaboration photo
 
 	const cta = $state({
 		headline: "Join the Movement: Fund a Future, Start a Campaign.",
-		subtext:
-			"SorceMoola is the community you've been waiting for. Whether you're ready to give aid today or need a trusted platform to launch your personal advancement campaign, your journey starts here."
+		subtext: "SorceMoola is the community you've been waiting for. Whether you're ready to give aid today or need a trusted platform to launch your personal advancement campaign, your journey starts here."
 	});
 </script>
 
@@ -69,42 +62,15 @@
 					<div>
 						<p class="subtitle">About Us</p>
 						<h1 class="title">Who Exactly Are We?</h1>
-						<p>
-							SorceMoola is the secure, community-driven crowdfunding platform built to formalize
-							and strengthen Nigeria’s innate culture of communal support. We exist to close the
-							financial gap left by inadequate social safety nets, providing a transparent bridge
-							between the desire to help and the critical needs on the ground.
-						</p>
+						<p>SorceMoola is the secure, community-driven crowdfunding platform built to formalize and strengthen Nigeria’s innate culture of communal support. We exist to close the financial gap left by inadequate social safety nets, providing a transparent bridge between the desire to help and the critical needs on the ground.</p>
 					</div>
-					<img
-						class="img"
-						src="https://images.unsplash.com/photo-1518398046578-8cca57782e17?ixid=M3w4MjcwNjd8MHwxfHNlYXJjaHwxfHxnaXZpbmclMjB0byUyMG5lZWR5fGVufDB8fHx8MTc2NDgxMTY3N3ww&ixlib=rb-4.1.0&fit=max&q=80"
-						alt=""
-						width="100%"
-						height="auto"
-					/>
-					<img
-						class="img"
-						src="https://images.unsplash.com/photo-1560220604-1985ebfe28b1?ixid=M3w4MjcwNjd8MHwxfHNlYXJjaHw1fHxibGFjayUyMHBlb3BsZSUyMHZvbHVudGVlcmluZ3xlbnwwfHx8fDE3NjQ4MTE5NDh8MA&ixlib=rb-4.1.0&fit=max&q=80"
-						alt=""
-						width="100%"
-						height="auto"
-					/>
+					<img class="img" src="https://images.unsplash.com/photo-1518398046578-8cca57782e17?ixid=M3w4MjcwNjd8MHwxfHNlYXJjaHwxfHxnaXZpbmclMjB0byUyMG5lZWR5fGVufDB8fHx8MTc2NDgxMTY3N3ww&ixlib=rb-4.1.0&fit=max&q=80" alt="" width="100%" height="auto" />
+					<img class="img" src="https://images.unsplash.com/photo-1560220604-1985ebfe28b1?ixid=M3w4MjcwNjd8MHwxfHNlYXJjaHw1fHxibGFjayUyMHBlb3BsZSUyMHZvbHVudGVlcmluZ3xlbnwwfHx8fDE3NjQ4MTE5NDh8MA&ixlib=rb-4.1.0&fit=max&q=80" alt="" width="100%" height="auto" />
 				</div>
 				<div>
-					<img
-						class="img"
-						src="https://images.unsplash.com/photo-1575356891535-a79c0bc6bffc?ixid=M3w4MjcwNjd8MHwxfHNlYXJjaHw5fHxibGFjayUyMHBlb3BsZSUyMGNyb3dkZnVuZGluZ3xlbnwwfHx8fDE3NjQ4MTIwNjF8MA&ixlib=rb-4.1.0&fit=max&q=80"
-						alt=""
-						width="100%"
-						height="auto"
-					/>
+					<img class="img" src="https://images.unsplash.com/photo-1575356891535-a79c0bc6bffc?ixid=M3w4MjcwNjd8MHwxfHNlYXJjaHw5fHxibGFjayUyMHBlb3BsZSUyMGNyb3dkZnVuZGluZ3xlbnwwfHx8fDE3NjQ4MTIwNjF8MA&ixlib=rb-4.1.0&fit=max&q=80" alt="" width="100%" height="auto" />
 					<div>
-						<p>
-							From providing essential resources to funding life-changing projects, every effort is
-							directed toward building a better, more equitable world. By uniting individuals,
-							businesses, and communities.
-						</p>
+						<p>From providing essential resources to funding life-changing projects, every effort is directed toward building a better, more equitable world. By uniting individuals, businesses, and communities.</p>
 						<ul class="checklist">
 							<li>
 								<i class="checkmark fa-solid fa-check"></i>Join Our Mission to Make a Difference
@@ -121,10 +87,7 @@
 	<section class="mission_vision">
 		<div class="container">
 			<div class="quote-block">
-				<blockquote class="quote-text">
-					In Nigeria, family is the first safety net. SorceMoola is simply the digital extension of
-					that love, ensuring help is verified, immediate, and trustworthy.
-				</blockquote>
+				<blockquote class="quote-text">In Nigeria, family is the first safety net. SorceMoola is simply the digital extension of that love, ensuring help is verified, immediate, and trustworthy.</blockquote>
 				<cite class="quote-attribution">— Chikwem Donald, Founder & CEO</cite>
 			</div>
 
@@ -151,22 +114,13 @@
 		<div class="container">
 			<!-- Section Title -->
 			<h2 class="section-title">The Vanguards of Trust and Impact</h2>
-			<p class="section-subtitle">
-				Meet the leadership team committed to integrity, transparency, and the community.
-			</p>
+			<p class="section-subtitle">Meet the leadership team committed to integrity, transparency, and the community.</p>
 
 			<!-- 1. Group Visual (The Unity Element) -->
 			<div class="group-visual-block">
-				<img
-					src={groupImage}
-					alt="The SorceMoola leadership team collaborating"
-					class="group-photo"
-					loading="lazy"
-				/>
+				<img src={groupImage} alt="The SorceMoola leadership team collaborating" class="group-photo" loading="lazy" />
 				<div class="group-caption">
-					<span class="caption-text"
-						>"We build the platform, but the community is the true foundation."</span
-					>
+					<span class="caption-text">"We build the platform, but the community is the true foundation."</span>
 				</div>
 			</div>
 
@@ -175,12 +129,7 @@
 				{#each team as member (member.name)}
 					<div class="team-card">
 						<div class="photo-wrapper">
-							<img
-								src={member.image}
-								alt={`Portrait of ${member.name}, ${member.title}`}
-								class="team-photo"
-								loading="lazy"
-							/>
+							<img src={member.image} alt={`Portrait of ${member.name}, ${member.title}`} class="team-photo" loading="lazy" />
 						</div>
 						<h3 class="team-name">{member.name}</h3>
 						<p class="team-title">{member.title}</p>
@@ -205,41 +154,13 @@
 				<div class="cta-actions">
 					<!-- Button A: Primary Action (Donate) -->
 					<a href="/explore" class="btn btn-donate">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="24"
-							height="24"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							class="lucide lucide-heart-handshake"
-							><path
-								d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"
-							/><path d="m12 14 6-6" /></svg
-						>
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart-handshake"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" /><path d="m12 14 6-6" /></svg>
 						<span>Donate Now</span>
 					</a>
 
 					<!-- Button B: Secondary Action (Start Campaign) -->
 					<a href="/campaign/start" class="btn btn-campaign">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="24"
-							height="24"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							class="lucide lucide-megaphone"
-							><path d="m3 11 18-5v12L3 14v-3z" /><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6" /><path
-								d="M14 11h.01"
-							/></svg
-						>
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-megaphone"><path d="m3 11 18-5v12L3 14v-3z" /><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6" /><path d="M14 11h.01" /></svg>
 						<span>Start a Campaign</span>
 					</a>
 				</div>
@@ -591,129 +512,131 @@
 		}
 	}
 
-    .cta-section {
-        /* This section should stand out, hence a slight color change */
-        background-color: var(--text-white); 
-        padding: var(--spacing-3xl) 0;
-        font-family: sans-serif;
-    }
-    
-    .container {
-        max-width: var(--container-width);
-        margin: 0 auto;
-        padding: 0 var(--container-padding);
-    }
+	.cta-section {
+		/* This section should stand out, hence a slight color change */
+		background-color: var(--text-white);
+		padding: var(--spacing-3xl) 0;
+		font-family: sans-serif;
+	}
 
-    /* === CTA Card Styling === */
-    .cta-card {
-        background-color: var(--secondary-color); /* Bold Secondary Color */
-        color: var(--text-dark);
-        padding: var(--spacing-2xl);
-        border-radius: var(--radius-lg);
-        text-align: center;
-        max-width: 60rem;
-        margin: 0 auto;
-        /* Prominent Shadow to stand out */
-        box-shadow: 0 20px 40px rgba(248, 211, 71, 0.6); 
-    }
+	.container {
+		max-width: var(--container-width);
+		margin: 0 auto;
+		padding: 0 var(--container-padding);
+	}
 
-    .cta-headline {
-        font-size: 2.5rem;
-        font-weight: 800;
-        line-height: 1.2;
-        color: var(--text-dark);
-        margin-bottom: var(--spacing-md);
-    }
+	/* === CTA Card Styling === */
+	.cta-card {
+		background-color: var(--secondary-color); /* Bold Secondary Color */
+		color: var(--text-dark);
+		padding: var(--spacing-2xl);
+		border-radius: var(--radius-lg);
+		text-align: center;
+		max-width: 60rem;
+		margin: 0 auto;
+		/* Prominent Shadow to stand out */
+		box-shadow: 0 20px 40px rgba(248, 211, 71, 0.6);
+	}
 
-    .cta-subtext {
-        font-size: 1.15rem;
-        line-height: 1.6;
-        color: var(--text-medium);
-        max-width: 45rem;
-        margin: 0 auto var(--spacing-xl);
-    }
+	.cta-headline {
+		font-size: 2.5rem;
+		font-weight: 800;
+		line-height: 1.2;
+		color: var(--text-dark);
+		margin-bottom: var(--spacing-md);
+	}
 
-    /* === Dual Actions/Buttons === */
-    .cta-actions {
-        display: flex;
-        justify-content: center;
-        gap: var(--spacing-lg);
-    }
+	.cta-subtext {
+		font-size: 1.15rem;
+		line-height: 1.6;
+		color: var(--text-medium);
+		max-width: 45rem;
+		margin: 0 auto var(--spacing-xl);
+	}
 
-    .btn {
-        display: inline-flex;
-        align-items: center;
-        gap: var(--spacing-sm);
-        padding: 1rem 1.75rem;
-        border: none;
-        border-radius: var(--radius-md);
-        text-decoration: none;
-        font-weight: 700;
-        font-size: 1.1rem;
-        transition: transform 0.2s ease, box-shadow 0.3s ease;
-        cursor: pointer;
-        box-shadow: var(--shadow-md);
-    }
+	/* === Dual Actions/Buttons === */
+	.cta-actions {
+		display: flex;
+		justify-content: center;
+		gap: var(--spacing-lg);
+	}
 
-    .btn:hover {
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-lg);
-    }
+	.btn {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--spacing-sm);
+		padding: 1rem 1.75rem;
+		border: none;
+		border-radius: var(--radius-md);
+		text-decoration: none;
+		font-weight: 700;
+		font-size: 1.1rem;
+		transition:
+			transform 0.2s ease,
+			box-shadow 0.3s ease;
+		cursor: pointer;
+		box-shadow: var(--shadow-md);
+	}
 
-    /* Primary CTA: Donate (Green Theme) */
-    .btn-donate {
-        background-color: var(--primary-color);
-        color: var(--text-white);
-    }
-    .btn-donate:hover {
-        background-color: var(--primary-dark);
-    }
-    
-    /* Secondary CTA: Campaign (Accent Theme - Purple) */
-    .btn-campaign {
-        background-color: var(--accent-color);
-        color: var(--text-white);
-    }
-    .btn-campaign:hover {
-        background-color: var(--accent-dark);
-    }
-    
-    .btn svg {
-        width: 20px;
-        height: 20px;
-    }
+	.btn:hover {
+		transform: translateY(-2px);
+		box-shadow: var(--shadow-lg);
+	}
 
-    /* === RESPONSIVENESS === */
-    @media (max-width: 768px) {
-        .cta-card {
-            padding: var(--spacing-lg);
-        }
-        
-        .cta-headline {
-            font-size: 2rem;
-        }
-        
-        .cta-subtext {
-            font-size: 1rem;
-            margin-bottom: var(--spacing-lg);
-        }
-        
-        .cta-actions {
-            flex-direction: column;
-            gap: var(--spacing-sm);
-        }
-        
-        .btn {
-            width: 100%;
-            padding: 0.8rem 1.5rem;
-            font-size: 1rem;
-            justify-content: center;
-        }
-    }
-    
-    @media (max-width: 480px) {
-         .cta-headline {
-            font-size: 1.75rem;
-        }
-    }
+	/* Primary CTA: Donate (Green Theme) */
+	.btn-donate {
+		background-color: var(--primary-color);
+		color: var(--text-white);
+	}
+	.btn-donate:hover {
+		background-color: var(--primary-dark);
+	}
+
+	/* Secondary CTA: Campaign (Accent Theme - Purple) */
+	.btn-campaign {
+		background-color: var(--accent-color);
+		color: var(--text-white);
+	}
+	.btn-campaign:hover {
+		background-color: var(--accent-dark);
+	}
+
+	.btn svg {
+		width: 20px;
+		height: 20px;
+	}
+
+	/* === RESPONSIVENESS === */
+	@media (max-width: 768px) {
+		.cta-card {
+			padding: var(--spacing-lg);
+		}
+
+		.cta-headline {
+			font-size: 2rem;
+		}
+
+		.cta-subtext {
+			font-size: 1rem;
+			margin-bottom: var(--spacing-lg);
+		}
+
+		.cta-actions {
+			flex-direction: column;
+			gap: var(--spacing-sm);
+		}
+
+		.btn {
+			width: 100%;
+			padding: 0.8rem 1.5rem;
+			font-size: 1rem;
+			justify-content: center;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.cta-headline {
+			font-size: 1.75rem;
+		}
+	}
 </style>
