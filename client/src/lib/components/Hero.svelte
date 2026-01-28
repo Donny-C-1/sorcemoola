@@ -1,5 +1,5 @@
 <script>
-	import Button from "./ui/Button.svelte";
+	import Button from './ui/Button.svelte';
 </script>
 
 <section class="hero-section">
@@ -8,7 +8,9 @@
 	<div class="hero-content container">
 		<div class="hero-text">
 			<h1>Fund Your Dreams, Support Others</h1>
-			<p>Whether it’s an urgent campaign or a collaborative project, SorceMoola helps you achieve your funding goal, securely.</p>
+			<p>
+				Whether it’s an urgent campaign or a collaborative project, SorceMoola helps you achieve your funding goal, securely.
+			</p>
 			<div class="hero-buttons">
 				<Button primary={true} large={true} href="/dashboard/create">Start a Campaign</Button>
 				<Button primary={false} large={true} href="/explore">Donate Now</Button>
@@ -16,7 +18,11 @@
 		</div>
 
 		<div class="hero-image">
-			<img src="images/hero-image.webp" alt="People collaborating on projects" loading="eager" />
+			<img
+				src="images/hero-image.webp"
+				alt="People collaborating on projects"
+				loading="eager"
+			/>
 		</div>
 	</div>
 </section>
@@ -25,7 +31,7 @@
 	.hero-section {
 		position: relative;
 		height: 90vh;
-		padding: 0;
+    padding: 0;
 		min-height: 38rem;
 		display: flex;
 		align-items: center;
@@ -35,7 +41,7 @@
 
 	.overlay {
 		position: absolute;
-		inset: 0;
+    inset: 0;
 		background: linear-gradient(135deg, rgba(52, 162, 115, 0.1) 0%, rgba(52, 162, 115, 0.2) 100%);
 		z-index: 1;
 	}
@@ -43,7 +49,7 @@
 	.parallax-bg {
 		position: absolute;
 		inset: 0;
-		background-image: url("/images/dots-pattern.svg");
+		background-image: url('/images/dots-pattern.svg');
 		opacity: 0.4;
 		z-index: 0;
 		transition: transform 0.5s ease-out;
@@ -113,7 +119,7 @@
 	}
 
 	@media (max-width: 992px) {
-		.hero-section {
+    .hero-section {
 			height: auto;
 			padding-top: var(--spacing-md);
 			padding-bottom: var(--spacing-xl);

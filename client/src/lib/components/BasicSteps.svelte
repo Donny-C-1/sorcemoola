@@ -8,7 +8,9 @@
 	// Local state for image preview (to show immediately upon upload)
 	let imagePreview = $state(formData.image || null);
 
-	const categories = ["Technology", "Art", "Comics", "Design", "Film", "Food", "Games", "Music", "Publishing"];
+	const categories = [
+		'Technology', 'Art', 'Comics', 'Design', 'Film', 'Food', 'Games', 'Music', 'Publishing'
+	];
 
 	const durationOptions = [30, 60];
 
@@ -17,20 +19,22 @@
 		const input = event.target;
 		if (input.files && input.files[0]) {
 			const file = input.files[0];
-
+			
 			// In a real app, you might upload this to S3 here.
 			// For now, we create a local object URL for immediate preview.
 			imagePreview = URL.createObjectURL(file);
-
+			
 			// Update the parent data (assuming parent expects a file object or URL)
-			formData.image = imagePreview;
+			formData.image = imagePreview; 
 		}
 	}
 </script>
 
 <div class="basics-container">
+	
 	<!-- LEFT COLUMN: Input Form -->
 	<div class="form-section">
+		
 		<!-- 1. Identity Group -->
 		<section class="group-container">
 			<div class="form-group">
@@ -40,7 +44,14 @@
 						{formData.title?.length || 0} / 60
 					</span>
 				</div>
-				<input type="text" id="campaign-title" bind:value={formData.title} maxlength="60" placeholder="The Future of Coffee" aria-describedby="title-help" />
+				<input 
+					type="text" 
+					id="campaign-title" 
+					bind:value={formData.title} 
+					maxlength="60" 
+					placeholder="The Future of Coffee"
+					aria-describedby="title-help"
+				/>
 				<p id="title-help" class="helper-text">What is the clear, distinct name of your project?</p>
 			</div>
 
@@ -51,7 +62,14 @@
 						{formData.tagline?.length || 0} / 135
 					</span>
 				</div>
-				<textarea id="campaign-tagline" bind:value={formData.tagline} maxlength="135" rows="3" placeholder="A smart coffee maker that learns your brewing habits." aria-describedby="tagline-help"></textarea>
+				<textarea 
+					id="campaign-tagline" 
+					bind:value={formData.tagline} 
+					maxlength="135" 
+					rows="3" 
+					placeholder="A smart coffee maker that learns your brewing habits."
+					aria-describedby="tagline-help"
+				></textarea>
 				<p id="tagline-help" class="helper-text">This appears on your project card and search results.</p>
 			</div>
 		</section>
@@ -75,7 +93,12 @@
 				<label for="location-input">Location</label>
 				<div class="input-icon-wrapper">
 					<svg class="input-icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-					<input type="text" id="location-input" bind:value={formData.location} placeholder="New York, NY" />
+					<input 
+						type="text" 
+						id="location-input" 
+						bind:value={formData.location} 
+						placeholder="New York, NY"
+					/>
 				</div>
 			</div>
 		</section>
@@ -85,7 +108,13 @@
 			<div class="form-group">
 				<label for="image-upload">Card Image</label>
 				<div class="file-dropzone">
-					<input type="file" id="image-upload" accept="image/*" onchange={handleImageUpload} aria-describedby="image-help" />
+					<input 
+						type="file" 
+						id="image-upload" 
+						accept="image/*" 
+						onchange={handleImageUpload}
+						aria-describedby="image-help"
+					/>
 					<div class="dropzone-content">
 						<div class="upload-icon">
 							<svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
@@ -103,7 +132,13 @@
 				<label for="goal-input">Funding Goal</label>
 				<div class="input-icon-wrapper">
 					<span class="currency-symbol">$</span>
-					<input type="number" id="goal-input" bind:value={formData.goal} placeholder="10,000" min="1" />
+					<input 
+						type="number" 
+						id="goal-input" 
+						bind:value={formData.goal} 
+						placeholder="10,000"
+						min="1"
+					/>
 				</div>
 				<p class="helper-text">If you don't reach this goal, you won't receive funds.</p>
 			</div>
@@ -125,13 +160,14 @@
 				</div>
 			</fieldset>
 		</section>
+
 	</div>
 
 	<!-- RIGHT COLUMN: Preview -->
 	<aside class="preview-section">
 		<div class="sticky-wrapper">
 			<h3 class="preview-heading">Card Preview</h3>
-
+			
 			<div class="card-preview">
 				<div class="card-image-area">
 					{#if imagePreview}
@@ -142,12 +178,12 @@
 						</div>
 					{/if}
 				</div>
-
+				
 				<div class="card-content">
-					<span class="card-category">{formData.category || "Category"}</span>
-					<h4 class="card-title">{formData.title || "Your Campaign Title"}</h4>
-					<p class="card-desc">{formData.tagline || "Your catchy tagline will appear here to summarize your project..."}</p>
-
+					<span class="card-category">{formData.category || 'Category'}</span>
+					<h4 class="card-title">{formData.title || 'Your Campaign Title'}</h4>
+					<p class="card-desc">{formData.tagline || 'Your catchy tagline will appear here to summarize your project...'}</p>
+					
 					<div class="card-footer">
 						<div class="progress-bar-bg">
 							<div class="progress-bar-fill" style="width: 0%"></div>
@@ -166,6 +202,7 @@
 			</div>
 		</div>
 	</aside>
+
 </div>
 
 <style>
@@ -231,8 +268,7 @@
 	}
 
 	/* Labels & Text */
-	label,
-	.label-legend {
+	label, .label-legend {
 		font-weight: 600;
 		font-size: 0.95rem;
 		color: var(--text-dark);
@@ -299,8 +335,7 @@
 		padding-left: 2.5rem; /* Space for icon */
 	}
 
-	.input-icon,
-	.currency-symbol {
+	.input-icon, .currency-symbol {
 		position: absolute;
 		left: 0.75rem;
 		top: 50%;
@@ -345,8 +380,7 @@
 		cursor: pointer;
 	}
 
-	.file-dropzone:hover,
-	.file-dropzone:focus-within {
+	.file-dropzone:hover, .file-dropzone:focus-within {
 		border-color: var(--primary);
 		background-color: var(--primary-light);
 	}

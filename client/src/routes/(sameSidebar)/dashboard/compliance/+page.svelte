@@ -36,14 +36,14 @@
 		<p>Verify your identity to enable payouts and increase donor trust.</p>
 	</header>
 
-	{#if kycStatus === "pending"}
+	{#if kycStatus === 'pending'}
 		<div class="card status-card pending">
 			<div class="icon">⏳</div>
 			<h2>Verification in Progress</h2>
 			<p>Our compliance team is reviewing your documents. This usually takes 24-48 hours.</p>
-			<button class="btn-outline" onclick={() => (kycStatus = "unverified")}>Update Submission</button>
+			<button class="btn-outline" onclick={() => (kycStatus = 'unverified')}>Update Submission</button>
 		</div>
-	{:else if kycStatus === "verified"}
+	{:else if kycStatus === 'verified'}
 		<div class="card status-card verified">
 			<div class="icon">✅</div>
 			<h2>Account Verified</h2>
@@ -63,30 +63,39 @@
 				<div class="step-content">
 					<h3>Select Entity Type</h3>
 					<p class="step-desc">Are you raising funds as an individual or a registered organization?</p>
-
+					
 					<div class="selection-grid">
-						<button class="select-box" class:selected={entityType === "individual"} onclick={() => (entityType = "individual")}>
+						<button 
+							class="select-box" 
+							class:selected={entityType === 'individual'} 
+							onclick={() => entityType = 'individual'}
+						>
 							<div class="icon-circle">👤</div>
 							<strong>Individual</strong>
 							<span>Personal aid, medical bills, or individual relief.</span>
 						</button>
 
-						<button class="select-box" class:selected={entityType === "ngo"} onclick={() => (entityType = "ngo")}>
+						<button 
+							class="select-box" 
+							class:selected={entityType === 'ngo'} 
+							onclick={() => entityType = 'ngo'}
+						>
 							<div class="icon-circle">🏢</div>
 							<strong>NGO / Organization</strong>
 							<span>Non-profits, charities, and community groups.</span>
 						</button>
 					</div>
 				</div>
+
 			{:else if currentStep === 2}
 				<div class="step-content">
 					<h3>Basic Information</h3>
 					<div class="form-group">
-						<label for="name">{entityType === "ngo" ? "Organization Name" : "Full Name"}</label>
+						<label for="name">{entityType === 'ngo' ? 'Organization Name' : 'Full Name'}</label>
 						<input type="text" id="name" bind:value={formData.fullName} placeholder="Legal name as on ID" />
 					</div>
-
-					{#if entityType === "ngo"}
+					
+					{#if entityType === 'ngo'}
 						<div class="form-group">
 							<label for="reg">Registration Number</label>
 							<input type="text" id="reg" bind:value={formData.registrationNumber} placeholder="NGO-12345678" />
@@ -98,6 +107,7 @@
 						<textarea id="addr" bind:value={formData.address} placeholder="Street, City, State, Country"></textarea>
 					</div>
 				</div>
+
 			{:else if currentStep === 3}
 				<div class="step-content">
 					<h3>Upload Documents</h3>
@@ -107,22 +117,22 @@
 						<div class="upload-item">
 							<label>Government Issued ID (Front)</label>
 							<div class="file-drop">
-								<input type="file" onchange={(e) => handleFileChange(e, "idFront")} />
-								<span class="file-label">{formData.files.idFront ? formData.files.idFront.name : "Click to upload ID Front"}</span>
+								<input type="file" onchange={(e) => handleFileChange(e, 'idFront')} />
+								<span class="file-label">{formData.files.idFront ? formData.files.idFront.name : 'Click to upload ID Front'}</span>
 							</div>
 						</div>
 
-						{#if entityType === "ngo"}
+						{#if entityType === 'ngo'}
 							<div class="upload-item">
 								<label>NGO Registration Certificate</label>
 								<div class="file-drop">
-									<input type="file" onchange={(e) => handleFileChange(e, "registrationDoc")} />
-									<span class="file-label">{formData.files.registrationDoc ? formData.files.registrationDoc.name : "Click to upload Certificate"}</span>
+									<input type="file" onchange={(e) => handleFileChange(e, 'registrationDoc')} />
+									<span class="file-label">{formData.files.registrationDoc ? formData.files.registrationDoc.name : 'Click to upload Certificate'}</span>
 								</div>
 							</div>
 						{/if}
 					</div>
-
+					
 					<div class="compliance-note">
 						<p>🛡️ Your data is encrypted and stored according to global privacy standards.</p>
 					</div>
@@ -133,7 +143,7 @@
 				{#if currentStep > 1}
 					<button class="btn-text" onclick={prevStep}>Back</button>
 				{/if}
-
+				
 				{#if currentStep < 3}
 					<button class="btn-primary" onclick={nextStep}>Continue</button>
 				{:else}
@@ -151,18 +161,9 @@
 		padding: var(--spacing-lg);
 	}
 
-	.page-header {
-		margin-bottom: var(--spacing-xl);
-		text-align: center;
-	}
-	.page-header h1 {
-		font-size: 2rem;
-		color: var(--text-dark);
-		margin-bottom: var(--spacing-xs);
-	}
-	.page-header p {
-		color: var(--text-medium);
-	}
+	.page-header { margin-bottom: var(--spacing-xl); text-align: center; }
+	.page-header h1 { font-size: 2rem; color: var(--text-dark); margin-bottom: var(--spacing-xs); }
+	.page-header p { color: var(--text-medium); }
 
 	/* Stepper Styles */
 	.stepper {
@@ -193,21 +194,15 @@
 		justify-content: center;
 	}
 
-	.step.active {
-		color: var(--accent-color);
-	}
-	.step.active span {
-		background: var(--accent-color);
-	}
+	.step.active { color: var(--accent-color); }
+	.step.active span { background: var(--accent-color); }
 
 	.step-line {
 		width: 60px;
 		height: 2px;
 		background: var(--primary-bg);
 	}
-	.step-line.active {
-		background: var(--accent-light);
-	}
+	.step-line.active { background: var(--accent-light); }
 
 	/* Card & Content */
 	.card {
@@ -215,18 +210,11 @@
 		border-radius: var(--radius-lg);
 		padding: var(--spacing-xl);
 		box-shadow: var(--shadow-md);
-		border: 1px solid rgba(0, 0, 0, 0.05);
+		border: 1px solid rgba(0,0,0,0.05);
 	}
 
-	.step-content h3 {
-		font-size: 1.5rem;
-		margin-bottom: var(--spacing-xs);
-		color: var(--text-dark);
-	}
-	.step-desc {
-		color: var(--text-medium);
-		margin-bottom: var(--spacing-lg);
-	}
+	.step-content h3 { font-size: 1.5rem; margin-bottom: var(--spacing-xs); color: var(--text-dark); }
+	.step-desc { color: var(--text-medium); margin-bottom: var(--spacing-lg); }
 
 	/* Entity Selection */
 	.selection-grid {
@@ -248,14 +236,8 @@
 		transition: all 0.2s;
 	}
 
-	.select-box:hover {
-		border-color: var(--primary-light);
-		background: var(--primary-bg);
-	}
-	.select-box.selected {
-		border-color: var(--primary-color);
-		background: var(--primary-bg);
-	}
+	.select-box:hover { border-color: var(--primary-light); background: var(--primary-bg); }
+	.select-box.selected { border-color: var(--primary-color); background: var(--primary-bg); }
 
 	.icon-circle {
 		width: 50px;
@@ -270,31 +252,13 @@
 		box-shadow: var(--shadow-sm);
 	}
 
-	.select-box strong {
-		display: block;
-		margin-bottom: 4px;
-		color: var(--text-dark);
-	}
-	.select-box span {
-		font-size: 0.8rem;
-		color: var(--text-medium);
-		line-height: 1.4;
-	}
+	.select-box strong { display: block; margin-bottom: 4px; color: var(--text-dark); }
+	.select-box span { font-size: 0.8rem; color: var(--text-medium); line-height: 1.4; }
 
 	/* Form Inputs */
-	.form-group {
-		margin-bottom: var(--spacing-md);
-		display: flex;
-		flex-direction: column;
-		gap: 8px;
-	}
-	.form-group label {
-		font-weight: 600;
-		font-size: 0.9rem;
-		color: var(--text-dark);
-	}
-	input,
-	textarea {
+	.form-group { margin-bottom: var(--spacing-md); display: flex; flex-direction: column; gap: 8px; }
+	.form-group label { font-weight: 600; font-size: 0.9rem; color: var(--text-dark); }
+	input, textarea {
 		padding: var(--spacing-smr);
 		border: 1px solid var(--neutral-color);
 		border-radius: var(--radius-sm);
@@ -319,10 +283,7 @@
 		cursor: pointer;
 	}
 
-	.file-label {
-		color: var(--primary-dark);
-		font-weight: 500;
-	}
+	.file-label { color: var(--primary-dark); font-weight: 500; }
 
 	.compliance-note {
 		margin-top: var(--spacing-lg);
@@ -334,20 +295,9 @@
 	}
 
 	/* Status Cards */
-	.status-card {
-		text-align: center;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: var(--spacing-sm);
-	}
-	.status-card .icon {
-		font-size: 4rem;
-		margin-bottom: var(--spacing-sm);
-	}
-	.status-card.verified h2 {
-		color: var(--primary-color);
-	}
+	.status-card { text-align: center; display: flex; flex-direction: column; align-items: center; gap: var(--spacing-sm); }
+	.status-card .icon { font-size: 4rem; margin-bottom: var(--spacing-sm); }
+	.status-card.verified h2 { color: var(--primary-color); }
 
 	.form-footer {
 		display: flex;
@@ -368,24 +318,10 @@
 		cursor: pointer;
 	}
 
-	.btn-text {
-		background: none;
-		border: none;
-		color: var(--text-medium);
-		cursor: pointer;
-		font-weight: 600;
-	}
-	.btn-outline {
-		border: 1px solid var(--neutral-color);
-		background: none;
-		padding: 10px 20px;
-		cursor: pointer;
-		border-radius: 4px;
-	}
+	.btn-text { background: none; border: none; color: var(--text-medium); cursor: pointer; font-weight: 600; }
+    .btn-outline { border: 1px solid var(--neutral-color); background: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; }
 
 	@media (max-width: 600px) {
-		.selection-grid {
-			grid-template-columns: 1fr;
-		}
+		.selection-grid { grid-template-columns: 1fr; }
 	}
 </style>

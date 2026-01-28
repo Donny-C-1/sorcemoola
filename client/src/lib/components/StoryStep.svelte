@@ -24,17 +24,17 @@
 		e.preventDefault();
 		isDragging = true;
 	}
-
+	
 	function onDragLeave() {
 		isDragging = false;
 	}
-
+	
 	function onDrop(e: DragEvent) {
 		e.preventDefault();
 		isDragging = false;
 		if (e.dataTransfer?.files && e.dataTransfer.files[0]) {
 			const file = e.dataTransfer.files[0];
-			if (file.type.startsWith("video/")) {
+			if (file.type.startsWith('video/')) {
 				videoFile = file;
 				formData.video = file.name;
 			}
@@ -54,8 +54,10 @@
 </script>
 
 <div class="story-container">
+
 	<!-- LEFT COLUMN: Content Form -->
 	<div class="form-section">
+		
 		<!-- 1. Video Section -->
 		<section class="form-group">
 			<div class="label-row">
@@ -64,9 +66,23 @@
 			</div>
 			<p class="helper-text-lg">Projects with a video have a much higher success rate. Keep it under 3 minutes.</p>
 
-			<div class="video-dropzone {isDragging ? 'dragging' : ''} {videoFile ? 'has-file' : ''}" role="button" tabindex="0" ondragover={onDragOver} ondragleave={onDragLeave} ondrop={onDrop} aria-label="Upload video area">
+			<div 
+				class="video-dropzone {isDragging ? 'dragging' : ''} {videoFile ? 'has-file' : ''}"
+				role="button"
+				tabindex="0"
+				ondragover={onDragOver}
+				ondragleave={onDragLeave}
+				ondrop={onDrop}
+				aria-label="Upload video area"
+			>
 				{#if !videoFile}
-					<input type="file" id="video-upload" accept="video/mp4,video/webm,video/mov" onchange={handleVideoSelect} class="hidden-input" />
+					<input 
+						type="file" 
+						id="video-upload" 
+						accept="video/mp4,video/webm,video/mov" 
+						onchange={handleVideoSelect}
+						class="hidden-input"
+					/>
 					<div class="dropzone-empty">
 						<div class="icon-circle">
 							<svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="2" fill="none"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
@@ -85,7 +101,9 @@
 								<span class="filesize">{(videoFile.size / (1024 * 1024)).toFixed(2)} MB</span>
 							</div>
 						</div>
-						<button class="btn-remove" onclick={removeVideo} aria-label="Remove video"> Remove </button>
+						<button class="btn-remove" onclick={removeVideo} aria-label="Remove video">
+							Remove
+						</button>
 					</div>
 					<!-- Fake progress bar -->
 					<div class="upload-progress">
@@ -104,35 +122,40 @@
 				<!-- Toolbar -->
 				<div class="rte-toolbar" role="toolbar" aria-label="Text formatting">
 					<div class="btn-group">
-						<button type="button" class="toolbar-btn font-bold" onclick={() => execCmd("bold")} aria-label="Bold">B</button>
-						<button type="button" class="toolbar-btn italic" onclick={() => execCmd("italic")} aria-label="Italic">I</button>
-						<button type="button" class="toolbar-btn underline" onclick={() => execCmd("underline")} aria-label="Underline">U</button>
+						<button type="button" class="toolbar-btn font-bold" onclick={() => execCmd('bold')} aria-label="Bold">B</button>
+						<button type="button" class="toolbar-btn italic" onclick={() => execCmd('italic')} aria-label="Italic">I</button>
+						<button type="button" class="toolbar-btn underline" onclick={() => execCmd('underline')} aria-label="Underline">U</button>
 					</div>
 					<div class="divider"></div>
 					<div class="btn-group">
-						<button type="button" class="toolbar-btn" onclick={() => execCmd("h1")}>H1</button>
-						<button type="button" class="toolbar-btn" onclick={() => execCmd("h2")}>H2</button>
+						<button type="button" class="toolbar-btn" onclick={() => execCmd('h1')}>H1</button>
+						<button type="button" class="toolbar-btn" onclick={() => execCmd('h2')}>H2</button>
 					</div>
 					<div class="divider"></div>
 					<div class="btn-group">
-						<button type="button" class="toolbar-btn" onclick={() => execCmd("image")} aria-label="Insert Image">
+						<button type="button" class="toolbar-btn" onclick={() => execCmd('image')} aria-label="Insert Image">
 							<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
 						</button>
-						<button type="button" class="toolbar-btn" onclick={() => execCmd("link")} aria-label="Insert Link">
+						<button type="button" class="toolbar-btn" onclick={() => execCmd('link')} aria-label="Insert Link">
 							<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
 						</button>
 					</div>
 				</div>
 
 				<!-- Editor Area -->
-				<textarea id="story-editor" bind:value={formData.story} placeholder="Start writing your story here... Introduce your team, explain your budget, and share your passion." class="rte-content"></textarea>
+				<textarea 
+					id="story-editor"
+					bind:value={formData.story}
+					placeholder="Start writing your story here... Introduce your team, explain your budget, and share your passion."
+					class="rte-content"
+				></textarea>
 			</div>
 		</section>
 
 		<!-- 3. Risks Section -->
 		<section class="form-group">
 			<label for="risks-input" class="label-lg">Risks & Challenges</label>
-
+			
 			<div class="info-box">
 				<div class="info-icon">
 					<svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
@@ -143,13 +166,21 @@
 				</div>
 			</div>
 
-			<textarea id="risks-input" bind:value={formData.risks} rows="5" placeholder="e.g. As with any manufacturing project, there may be delays in shipping due to supply chain issues..." class="standard-textarea"></textarea>
+			<textarea 
+				id="risks-input" 
+				bind:value={formData.risks}
+				rows="5"
+				placeholder="e.g. As with any manufacturing project, there may be delays in shipping due to supply chain issues..."
+				class="standard-textarea"
+			></textarea>
 		</section>
+
 	</div>
 
 	<!-- RIGHT COLUMN: Sidebar / Guidelines -->
 	<aside class="sidebar-section">
 		<div class="sticky-wrapper">
+			
 			<!-- Tips Card -->
 			<div class="sidebar-card">
 				<div class="card-header">
@@ -188,8 +219,10 @@
 					<span class="spec-val">MP4, MOV</span>
 				</div>
 			</div>
+
 		</div>
 	</aside>
+
 </div>
 
 <style>
@@ -284,7 +317,7 @@
 		overflow: hidden;
 	}
 
-	.video-dropzone:hover,
+	.video-dropzone:hover, 
 	.video-dropzone.dragging {
 		border-color: var(--primary);
 		background-color: var(--primary-super-light);
@@ -337,7 +370,7 @@
 		color: var(--text-dark);
 		margin-bottom: 0.25rem;
 	}
-
+	
 	.upload-title strong {
 		color: var(--primary);
 	}
@@ -395,7 +428,7 @@
 		cursor: pointer;
 		transition: background 0.2s;
 	}
-
+	
 	.btn-remove:hover {
 		background: #fee2e2;
 	}
@@ -408,18 +441,16 @@
 		height: 4px;
 		background: #bbf7d0;
 	}
-
+	
 	.progress-bar {
 		height: 100%;
 		background: var(--primary);
 		width: 0%;
 		animation: load 0.5s ease-out forwards;
 	}
-
+	
 	@keyframes load {
-		to {
-			width: 100%;
-		}
+		to { width: 100%; }
 	}
 
 	/* --- RICH TEXT EDITOR MOCK --- */
@@ -429,9 +460,7 @@
 		background: var(--bg-white);
 		overflow: hidden;
 		box-shadow: var(--shadow-sm);
-		transition:
-			border 0.2s,
-			box-shadow 0.2s;
+		transition: border 0.2s, box-shadow 0.2s;
 	}
 
 	.rich-text-wrapper:focus-within {
@@ -473,15 +502,9 @@
 		color: var(--text-dark);
 	}
 
-	.font-bold {
-		font-weight: bold;
-	}
-	.italic {
-		font-style: italic;
-	}
-	.underline {
-		text-decoration: underline;
-	}
+	.font-bold { font-weight: bold; }
+	.italic { font-style: italic; }
+	.underline { text-decoration: underline; }
 
 	.divider {
 		width: 1px;
@@ -534,9 +557,7 @@
 		font-family: inherit;
 		color: var(--text-dark);
 		outline: none;
-		transition:
-			border 0.2s,
-			box-shadow 0.2s;
+		transition: border 0.2s, box-shadow 0.2s;
 	}
 
 	.standard-textarea:focus {

@@ -459,6 +459,7 @@
 		}
 	}
 
+	
 	@media screen and (min-width: 48rem) {
 		.wizard-header {
 			position: sticky;

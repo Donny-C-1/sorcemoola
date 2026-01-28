@@ -1,11 +1,24 @@
 <script>
-	let { handler, primary = true, neutral = false, inverted = false, large = false, wide = false, disabled = false, href = undefined, type = "button", children } = $props();
+	let {
+		handler,
+		primary = true,
+		neutral = false,
+		inverted = false,
+		large = false,
+		wide = false,
+		disabled = false,
+		href = undefined,
+		type = 'button',
+		children
+	} = $props();
 </script>
 
 {#if href}
 	<a {href} class:primary class:neutral class:inverted class:large {disabled}>{@render children?.()}</a>
 {:else}
-	<button onclick={handler} {type} class:primary class:neutral class:inverted class:large class:wide {disabled}>{@render children?.()}</button>
+	<button onclick={handler} {type} class:primary class:neutral class:inverted class:large class:wide {disabled}
+		>{@render children?.()}</button
+	>
 {/if}
 
 <style>
@@ -14,7 +27,7 @@
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		font-family: "Poppins", sans-serif;
+		font-family: 'Poppins', sans-serif;
 		font-weight: 600;
 		font-size: 1rem;
 		padding: 12px 24px;
@@ -30,13 +43,18 @@
 
 	button::after,
 	a::after {
-		content: "";
+		content: '';
 		position: absolute;
 		width: 100%;
 		height: 100%;
 		top: 0;
 		left: -100%;
-		background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0) 100%);
+		background: linear-gradient(
+			90deg,
+			rgba(255, 255, 255, 0) 0%,
+			rgba(255, 255, 255, 0.2) 50%,
+			rgba(255, 255, 255, 0) 100%
+		);
 		transition: left 0.5s ease;
 		z-index: -1;
 	}
