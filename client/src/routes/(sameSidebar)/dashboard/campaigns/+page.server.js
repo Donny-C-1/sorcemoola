@@ -6,6 +6,7 @@ export async function load({ locals }) {
 
 		let body = await response.json();
 
+		console.log('all campaigns', body)
 		if (!response.ok) {
 			body = null;
 		}
