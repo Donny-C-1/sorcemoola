@@ -1,6 +1,8 @@
 package handlers
 
 import (
+	"encoding/base64"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"log"
@@ -177,10 +179,25 @@ func VerifyTokenHandler(c *gin.Context) {
 
 func GoogleOAuth(c *gin.Context) {
 	code := c.Query("code")
+	rawState := c.Query("state")
 
 	if code == "" {
 		c.JSON(http.StatusUnauthorized, gin.H{"message": "Authorization code not provided!"})
 		return
+	}
+
+	accountType := "individual" // default
+
+	if rawState != "" {
+		stateBytes, err := base64.URLEncoding.DecodeString(rawState)
+		if err == nil {
+			var statePayload map[string]string
+			if err := json.Unmarshal(stateBytes, &statePayload); err == nil {
+				if v, ok := statePayload["accountType"]; ok && v != "" {
+					accountType = v
+				}
+			}
+		}
 	}
 
 	tokenRes, err := services.GetGoogleOauthToken(code)
@@ -205,7 +222,7 @@ func GoogleOAuth(c *gin.Context) {
 				ID:          uuid.New(),
 				Name:        google_user.Name,
 				Email:       google_user.Email,
-				AccountType: "individual",
+				AccountType: accountType,
 				Password:    "",
 			}
 			if result := database.DB.Create(&newUser); result.Error != nil {
