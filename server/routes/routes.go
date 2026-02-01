@@ -19,6 +19,8 @@ func SetupRoutes(router *gin.Engine) {
 			authGroup.POST("/login", handlers.Login)
 
 			authGroup.GET("/verify", handlers.VerifyTokenHandler)
+
+			authGroup.GET("/google", handlers.GoogleOAuth)
 		}
 
 		campaignGroup := v1.Group("/campaigns")
