@@ -1,15 +1,23 @@
 package handlers
 
 import (
+	"encoding/base64"
+	"encoding/json"
+	"errors"
+	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 
 	"github.com/donny-c-1/sorcemoola/server/auth"
 	"github.com/donny-c-1/sorcemoola/server/database"
 	"github.com/donny-c-1/sorcemoola/server/models"
+	"github.com/donny-c-1/sorcemoola/server/services"
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
+	"gorm.io/gorm"
 )
 
 func Register(c *gin.Context) {
@@ -167,4 +175,78 @@ func VerifyTokenHandler(c *gin.Context) {
 		"user_id": claims["user_id"],
 		"email":   claims["email"],
 	})
+}
+
+func GoogleOAuth(c *gin.Context) {
+	code := c.Query("code")
+	rawState := c.Query("state")
+
+	if code == "" {
+		c.JSON(http.StatusUnauthorized, gin.H{"message": "Authorization code not provided!"})
+		return
+	}
+
+	accountType := "individual" // default
+
+	if rawState != "" {
+		stateBytes, err := base64.URLEncoding.DecodeString(rawState)
+		if err == nil {
+			var statePayload map[string]string
+			if err := json.Unmarshal(stateBytes, &statePayload); err == nil {
+				if v, ok := statePayload["accountType"]; ok && v != "" {
+					accountType = v
+				}
+			}
+		}
+	}
+
+	tokenRes, err := services.GetGoogleOauthToken(code)
+
+	if err != nil {
+		c.JSON(http.StatusBadGateway, gin.H{"message": err.Error()})
+		return
+	}
+
+	google_user, err := services.GetGoogleUser(tokenRes.Access_token, tokenRes.Id_token)
+
+	if err != nil {
+		c.JSON(http.StatusBadGateway, gin.H{"message": err.Error()})
+		return
+	}
+
+	var user models.User
+	if err := database.DB.Where("email = ?", google_user.Email).First(&user).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			// User doesn't exist, create a new one
+			newUser := models.User{
+				ID:          uuid.New(),
+				Name:        google_user.Name,
+				Email:       google_user.Email,
+				AccountType: accountType,
+				Password:    "",
+			}
+			if result := database.DB.Create(&newUser); result.Error != nil {
+				c.JSON(http.StatusInternalServerError, gin.H{"message": "failed to create user"})
+				return
+			}
+			user = newUser
+		} else {
+			// other database error
+			c.JSON(http.StatusInternalServerError, gin.H{"message": "database error", "error": err.Error()})
+			return
+		}
+	}
+
+	token, err := auth.GenerateToken(&user, 72*time.Hour)
+	if err != nil {
+		log.Printf("Token generation failed: %v", err)
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"label":   "server",
+			"message": "Failed to generate token",
+		})
+		return
+	}
+
+	redirectUrl := os.Getenv("FRONTEND_REDIRECT_URL")
+	c.Redirect(http.StatusTemporaryRedirect, fmt.Sprintf("%s?token=%s", redirectUrl, token))
 }
